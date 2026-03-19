@@ -8,6 +8,8 @@
  * Text Domain:     jw-event-schedule
  * Domain Path:     /languages
  * Version:         0.1.0
+ * Requires at least: 6.9.4
+ * Requires PHP: 8.2
  *
  * @package         Jw_Event_Schedule
  */
