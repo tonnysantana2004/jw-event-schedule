@@ -4,6 +4,7 @@ namespace JWEventSchedule;
 
 defined('ABSPATH') || exit;
 
+// 1. Custom Post Type and Taxonomies
 class PostType
 {
     public static function init()
