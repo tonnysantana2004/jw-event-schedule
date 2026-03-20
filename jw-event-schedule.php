@@ -37,9 +37,9 @@ add_action('enqueue_block_editor_assets', function () {
 
     wp_enqueue_style(
         'jwes_plugin_style',
-        plugins_url('assets/sidebar.css', __FILE__),
+        plugins_url('assets/gutenberg/sidebar.css', __FILE__),
         array(),
-        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/sidebar.css')
+        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/gutenberg/sidebar.css')
     );
 
 });
