@@ -1,0 +1,34 @@
+<?php
+
+namespace JWEventSchedule;
+
+defined('ABSPATH') || exit;
+
+class PostType
+{
+    public static function init()
+    {
+
+        $args = array(
+            'labels' => array(
+                    'name'          => 'Events',
+                    'singular_name' => 'Event',
+                    'menu_name'     => 'Events',
+                    'add_new'       => 'Add New event',
+                    'add_new_item'  => 'Add New event',
+                    'new_item'      => 'New event',
+                    'edit_item'     => 'Edit event',
+                    'view_item'     => 'View event',
+                    'all_items'     => 'All events',
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'show_in_rest' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt'),
+        );
+
+        return register_post_type('event', $args);
+
+    }
+
+}
