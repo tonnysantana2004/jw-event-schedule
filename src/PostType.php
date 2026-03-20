@@ -24,7 +24,7 @@ class PostType
             ),
             'public' => true,
             'has_archive' => true,
-            'show_in_rest' => true,
+            'show_in_rest' => true, // 6. REST API Integration
             'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt'),
         );
 
