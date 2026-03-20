@@ -22,5 +22,8 @@ if (defined('JWES_PLUGIN_FILE')) {
     define('JWES_PLUGIN_FILE', __FILE__);
 }
 
-// Load core files
+// Load the autoload and core files
 require JWES_PLUGIN_FILE . '/vendor/autoload.php';
+require JWES_PLUGIN_FILE . '/core/JWEventSchedule.php';
+
+JWEventSchedule::start();
