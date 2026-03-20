@@ -1,10 +1,19 @@
 <?php
 
+use JWEventSchedule\PostType;
+
+defined('ABSPATH') || exit;
+
 class JWEventSchedule
 {
-    public function run(): string
+    public static function init()
     {
-        die("teste");
+        add_action('init', [self::class, 'handleInit']);
+    }
+
+    public static function handleInit()
+    {
+        PostType::init();
     }
 
 }
