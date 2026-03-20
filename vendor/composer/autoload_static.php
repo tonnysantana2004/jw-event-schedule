@@ -16,7 +16,7 @@ class ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167
     public static $prefixDirsPsr4 = array (
         'JWEventSchedule\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/core',
+            0 => __DIR__ . '/../..' . '/includes',
         ),
     );
 
