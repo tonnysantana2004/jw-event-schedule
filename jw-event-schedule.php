@@ -17,7 +17,6 @@
 
 defined('ABSPATH') || exit;
 
-
 if (defined('JWES_PLUGIN_FILE')) {
     define('JWES_PLUGIN_FILE', __FILE__);
 }
