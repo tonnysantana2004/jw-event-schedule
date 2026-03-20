@@ -1,4 +1,9 @@
 {
+  "autoload": {
+    "psr-4": {
+      "JWEventSchedule\\": "core/"
+    }
+  },
   "require-dev": {
     "wp-cli/i18n-command": "^2"
   },
