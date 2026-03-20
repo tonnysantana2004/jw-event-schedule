@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:     JW Event Schedule
  * Plugin URI:      https://portfolio.tonnysantana.com
@@ -14,4 +15,9 @@
  * @package         Jw_Event_Schedule
  */
 
-// Your code starts here.
+if (defined('JWES_PLUGIN_FILE')) {
+    define('JWES_PLUGIN_FILE', __FILE__);
+}
+
+// Load core files
+require JWES_PLUGIN_FILE . '/vendor/autoload.php';
