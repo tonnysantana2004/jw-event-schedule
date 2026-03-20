@@ -25,3 +25,21 @@ require dirname(JWES_PLUGIN_FILE)  . '/vendor/autoload.php';
 require dirname(JWES_PLUGIN_FILE) . '/core/JWEventSchedule.php';
 
 JWEventSchedule::init();
+
+add_action('enqueue_block_editor_assets', function () {
+
+    wp_enqueue_script(
+        'jwes_plugin_script',
+        plugins_url('build/index.js', JWES_PLUGIN_FILE),
+        array( 'wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data' ),
+        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'build/index.js')
+    );
+
+    wp_enqueue_style(
+        'jwes_plugin_style',
+        plugins_url('assets/sidebar.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/sidebar.css')
+    );
+
+});
