@@ -8,12 +8,16 @@ class JWEventSchedule
 {
     public static function init()
     {
-        add_action('init', [self::class, 'handleInit']);
-    }
+        $JWESPostType = new PostType();
 
-    public static function handleInit()
-    {
-        PostType::init();
+        add_action('init', function () use ($JWESPostType) {
+            $JWESPostType->create_the_post_type();
+            $JWESPostType->create_the_taxonomy();
+        });
+
+        add_action('rest_api_init', function () use ($JWESPostType) {
+            $JWESPostType->create_the_custom_fields();
+        });
     }
 
 }
