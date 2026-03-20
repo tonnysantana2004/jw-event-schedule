@@ -1,0 +1,22 @@
+{
+  "name": "jw-event-schedule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonnysantana2004/jw-event-schedule.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/tonnysantana2004/jw-event-schedule#readme",
+  "devDependencies": {
+    "@wordpress/plugins": "^7.42.0",
+    "@wordpress/scripts": "^31.7.0"
+  }
+}
