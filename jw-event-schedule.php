@@ -17,12 +17,11 @@
 
 defined('ABSPATH') || exit;
 
-if (defined('JWES_PLUGIN_FILE')) {
-    define('JWES_PLUGIN_FILE', __FILE__);
-}
+defined('JWES_PLUGIN_FILE') || define('JWES_PLUGIN_FILE', __FILE__);
+defined('JWES_PLUGIN_DIR') || define('JWES_PLUGIN_DIR', __DIR__);
 
 // Load the autoload and core files
-require JWES_PLUGIN_FILE . '/vendor/autoload.php';
-require JWES_PLUGIN_FILE . '/core/JWEventSchedule.php';
+require dirname(JWES_PLUGIN_FILE)  . '/vendor/autoload.php';
+require dirname(JWES_PLUGIN_FILE) . '/core/JWEventSchedule.php';
 
-JWEventSchedule::start();
+JWEventSchedule::init();
