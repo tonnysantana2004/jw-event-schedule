@@ -1,7 +1,7 @@
 {
   "autoload": {
     "psr-4": {
-      "JWEventSchedule\\": "includes/"
+      "JWEventSchedule\\": "src/"
     }
   },
   "require-dev": {
