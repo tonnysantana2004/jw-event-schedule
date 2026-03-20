@@ -19,6 +19,7 @@ class JWEventSchedule
             $JWESPostType->create_the_custom_fields();
         });
 
+        // 2. Admin Interface Enhancements
         // TODO: use the PostType class to proccess these functionalities
         // TODO: make the columns sortable
 

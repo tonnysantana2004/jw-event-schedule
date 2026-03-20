@@ -54,6 +54,7 @@ class PostType
         register_taxonomy('event_type', 'event', $args);
     }
 
+    // 2. Admin Interface Enhancements:
     public function create_the_custom_fields()
     {
         register_meta(
