@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'JWEventSchedule\\' => array($baseDir . '/includes'),
+    'JWEventSchedule\\' => array($baseDir . '/src'),
 );

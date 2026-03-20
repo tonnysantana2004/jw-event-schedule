@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167
+class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
 {
     public static $prefixLengthsPsr4 = array (
         'J' =>
@@ -16,7 +16,7 @@ class ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167
     public static $prefixDirsPsr4 = array (
         'JWEventSchedule\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/includes',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
@@ -27,9 +27,9 @@ class ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit970c413c43d5a1f2d37bb45c48ac4167::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$classMap;
 
         }, null, ClassLoader::class);
     }
