@@ -1,6 +1,7 @@
 <?php
 
 use JWEventSchedule\PostType;
+use JWEventSchedule\Template;
 
 defined('ABSPATH') || exit;
 
@@ -52,6 +53,14 @@ class JWEventSchedule
             }
 
         }, 10, 2);
+
+        // Use the single template for Events
+        add_action('single_template', function ($originalTemplate) {
+            $TemplateClass = new Template();
+            return $TemplateClass->singleEvent($originalTemplate);
+        });
+
+
 
     }
 
