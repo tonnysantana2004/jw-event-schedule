@@ -11,6 +11,12 @@ wp_head();
 <main>
 
 	<section class="container">
+		<form>
+			<input type="text" name="search" placeholder="Start typing...">
+		</form>
+	</section>
+
+	<section class="container">
 		<div class="listing-grid">
 
 			<?php while (have_posts()) : the_post() ?>
