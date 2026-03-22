@@ -89,7 +89,6 @@ class Main
                     plugins_url('assets/gutenberg/sidebar.css', JWES_PLUGIN_FILE),
                     array(),
                     filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/gutenberg/sidebar.css'),
-                    true
                 );
             }
         );
