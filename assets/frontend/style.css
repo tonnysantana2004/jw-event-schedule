@@ -10,6 +10,7 @@
     --primary-color: #36098f;
     --secondary-color: #7836fd;
     --accent-background-color: #c1f04a;
+    --border-color:#ccc; 
 
     font-size: 16px;
 }
@@ -18,8 +19,12 @@ main {
     margin-top: var(--space-lg);
 }
 
+a {
+    text-decoration: none;
+}
+
 hr {
-    border-top: solid 1px #ccc;
+    border-top: solid 1px var(--border-color);
     margin: var(--space-lg) 0;
 }
 
@@ -28,7 +33,7 @@ p:only-of-type {
 }
 
 .title {
-    font-weight: 700;
+    font-weight: 800;
     line-height: 2rem;
     margin: 0
 }
@@ -45,13 +50,18 @@ p:only-of-type {
     font-size: 1.4rem;
 }
 
-.title-3 {
-    font-size: 1.3rem;
+.title-4 {
+    font-size: 1.2rem;
+}
+
+.title-5 {
+    font-size: 1rem;
 }
 
 
+
 .text {
-    line-height: 2rem;
+    line-height: 1.6em;
 }
 
 .text-1 {
@@ -60,6 +70,18 @@ p:only-of-type {
 
 .text-2 {
     font-size: 1rem;
+}
+
+.text-3 {
+    font-size: 0.9rem;
+}
+
+.line-limit-3 {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .container {
@@ -90,7 +112,7 @@ header {
     height: var(--space-xl);
     display: flex;
     align-items: center;
-    border-bottom: solid 1px #ccc;
+    border-bottom: solid 1px var(--border-color);
 
     & .container {
         display: grid;
