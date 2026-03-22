@@ -104,6 +104,7 @@ class Main
         add_action(
             'wp_enqueue_scripts',
             function () {
+
                 wp_enqueue_style(
                     'jwes_frontend_style',
                     plugins_url('assets/frontend/style.css', JWES_PLUGIN_FILE),
@@ -111,12 +112,28 @@ class Main
                     filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/style.css')
                 );
 
-                wp_enqueue_style(
-                    'jwes_frontend_single_event_style',
-                    plugins_url('assets/frontend/single-event.css', JWES_PLUGIN_FILE),
-                    array(),
-                    filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/single-event.css')
-                );
+                if (is_singular('event')) {
+                    
+                    wp_enqueue_style(
+                        'jwes_frontend_single_event_style',
+                        plugins_url('assets/frontend/single-event.css', JWES_PLUGIN_FILE),
+                        array(),
+                        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/single-event.css')
+                    );
+
+                }
+
+                if ( is_post_type_archive('event') ) {
+
+                    wp_enqueue_style(
+                        'jwes_frontend_archive_event_style',
+                        plugins_url('assets/frontend/archive-event.css', JWES_PLUGIN_FILE),
+                        array(),
+                        filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/archive-event.css')
+                    );
+
+                }
+
             }
         );
     }
