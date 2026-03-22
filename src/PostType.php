@@ -114,7 +114,7 @@ class PostType
         }
 
         if ($include_date && $include_hour) {
-            $timestamp_format .= ', ';
+            $timestamp_format .= ' | ';
         }
 
         if ($include_hour) {
