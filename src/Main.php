@@ -123,7 +123,7 @@ class Main
 
                 }
 
-                if ( is_post_type_archive('event') ) {
+                if ( is_post_type_archive('event') || is_tax('event_type')) {
 
                     wp_enqueue_style(
                         'jwes_frontend_archive_event_style',
