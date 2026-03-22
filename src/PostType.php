@@ -11,22 +11,23 @@ class PostType
     {
         $args = array(
             'labels' => array(
-                    'name'          => 'Events',
-                    'singular_name' => 'Event',
-                    'menu_name'     => 'Events',
-                    'add_new'       => 'Add New event',
-                    'add_new_item'  => 'Add New event',
-                    'new_item'      => 'New event',
-                    'edit_item'     => 'Edit event',
-                    'view_item'     => 'View event',
-                    'all_items'     => 'All events',
+                'name'          => 'Events',
+                'singular_name' => 'Event',
+                'menu_name'     => 'Events',
+                'add_new'       => 'Add New event',
+                'add_new_item'  => 'Add New event',
+                'new_item'      => 'New event',
+                'edit_item'     => 'Edit event',
+                'view_item'     => 'View event',
+                'all_items'     => 'All events',
             ),
             'public' => true,
             'has_archive' => true,
 
             // 6. REST API Integration
             'show_in_rest' => true,
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'),
+            'rest_base' => 'events',
+            'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'),
         );
 
         return register_post_type('event', $args);
@@ -96,5 +97,20 @@ class PostType
                 }
             )
         );
+    }
+
+    public static function get_the_event_date_formated($post_id): string
+    {
+        $value                         = get_post_meta($post_id, 'event_date', true);
+        $timestamp                     = strtotime($value);
+        $site_default_timestamp_format = get_option('date_format') . ' ' . get_option('time_format');
+        $date                          = date_i18n($site_default_timestamp_format, $timestamp);
+        return esc_html($date);
+    }
+
+    public static function get_the_event_location_formated($post_id): string
+    {
+        $location = get_post_meta($post_id, 'event_location', true);
+        return $location ? esc_html($location) : 'Online';
     }
 }
