@@ -64,7 +64,7 @@ class EnqueueScripts
         wp_enqueue_script(
             $handle ? '' : str_replace(['/', '.'], '-', $related_file_path),
             plugins_url($related_file_path, JWES_PLUGIN_FILE),
-            array($dependencies),
+            $dependencies,
             filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . $related_file_path),
             true
         );
