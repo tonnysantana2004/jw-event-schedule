@@ -2,11 +2,9 @@
 
 use \JWES\PostType;
 
-wp_head();
+include('header.php'); 
 
 ?>
-
-<?php include('header.php'); ?>
 
 <main>
 
@@ -91,8 +89,6 @@ wp_head();
 		<p class="text text-2">The team at Jack Westin is dedicated to a single goal: Giving you the highest quality learning resources, bar none. We understand that you can’t crush the MCAT® without the perfect blend of critical thinking and fundamental science knowledge. To this end, we are dedicated to providing you with only the cutting edge of comprehensive tools, courses, and practice materials. Our MCAT® science and CARS courses, taught by the world’s best and most engaging MCAT® instructors, are designed to do more than just teach you the MCAT®—our aim is to supercharge your studying and encourage lifelong learning.</p>
 	</section>
 
-	<?php include('footer.php'); ?>
-
 </main>
 
-<?php wp_footer(); ?>
+<?php include('footer.php'); ?>
