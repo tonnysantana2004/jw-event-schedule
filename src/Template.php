@@ -17,4 +17,17 @@ class Template
         return $originalTemplate;
     }
 
+    public function archiveEvent($originalTemplate)
+    {
+        $archiveTemplate = JWES_PLUGIN_DIR . '/templates/archive-event.php';
+
+        if ('event' === get_post_type(get_the_ID())) {
+            if (file_exists($archiveTemplate)) {
+                return $archiveTemplate;
+            }
+        }
+
+        return $originalTemplate;
+    }
+
 }

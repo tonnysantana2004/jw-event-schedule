@@ -23,6 +23,9 @@ class PostType
             ),
             'public' => true,
             'has_archive' => true,
+            'rewrite' => [
+                'slug' => 'events'
+            ],
 
             // 6. REST API Integration
             'show_in_rest' => true,

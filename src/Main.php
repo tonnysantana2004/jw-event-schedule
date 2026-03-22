@@ -71,6 +71,15 @@ class Main
             }
         );
 
+        // Archive Template.
+        add_action(
+            'archive_template',
+            function ($original_template) {
+                $template_class = new Template();
+                return $template_class->archiveEvent($original_template);
+            }
+        );
+
         add_action(
             'enqueue_block_editor_assets',
             function () {
