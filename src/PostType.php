@@ -99,12 +99,26 @@ class PostType
         );
     }
 
-    public static function get_the_event_date_formated($post_id): string
+    public static function get_the_event_date_formated($post_id, $include_date = true, $include_hour = true): string
     {
-        $value                         = get_post_meta($post_id, 'event_date', true);
-        $timestamp                     = strtotime($value);
-        $site_default_timestamp_format = get_option('date_format') . ' ' . get_option('time_format');
-        $date                          = date_i18n($site_default_timestamp_format, $timestamp);
+        $value      = get_post_meta($post_id, 'event_date', true);
+        $timestamp  = strtotime($value);
+
+        $timestamp_format = "";
+
+        if ($include_date) {
+            $timestamp_format .= get_option('date_format');
+        }
+
+        if ($include_date && $include_hour) {
+            $timestamp_format .= ', ';
+        }
+
+        if ($include_hour) {
+            $timestamp_format .= get_option('time_format');
+        }
+
+        $date = date_i18n($timestamp_format, $timestamp);
         return esc_html($date);
     }
 
