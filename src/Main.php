@@ -51,16 +51,11 @@ class Main
             function ($column, $post_id) {
 
                 if ('event_date' === $column) {
-                    $value                         = get_post_meta($post_id, 'event_date', true);
-                    $timestamp                     = strtotime($value);
-                    $site_default_timestamp_format = get_option('date_format') . ' ' . get_option('time_format');
-                    $date                          = date_i18n($site_default_timestamp_format, $timestamp);
-                    echo esc_html($date);
+                    echo PostType::get_the_event_date_formated($post_id);
                 }
 
                 if ('event_location' === $column) {
-                    $value = get_post_meta($post_id, 'event_location', true);
-                    echo $value ? esc_html($value) : '—';
+                    echo PostType::get_the_event_location_formated($post_id);
                 }
             },
             10,
@@ -82,7 +77,7 @@ class Main
             function () {
 
                 wp_enqueue_script(
-                    'jwes_plugin_script',
+                    'jwes_gutenberg_script',
                     plugins_url('build/index.js', JWES_PLUGIN_FILE),
                     array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'),
                     filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'build/index.js'),
@@ -90,11 +85,30 @@ class Main
                 );
 
                 wp_enqueue_style(
-                    'jwes_plugin_style',
-                    plugins_url('assets/gutenberg/sidebar.css', __FILE__),
+                    'jwes_gutenberg_style',
+                    plugins_url('assets/gutenberg/sidebar.css', JWES_PLUGIN_FILE),
                     array(),
                     filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/gutenberg/sidebar.css'),
                     true
+                );
+            }
+        );
+
+        add_action(
+            'wp_enqueue_scripts',
+            function () {
+                wp_enqueue_style(
+                    'jwes_frontend_style',
+                    plugins_url('assets/frontend/style.css', JWES_PLUGIN_FILE),
+                    array(),
+                    filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/style.css')
+                );
+
+                wp_enqueue_style(
+                    'jwes_frontend_single_event_style',
+                    plugins_url('assets/frontend/single-event.css', JWES_PLUGIN_FILE),
+                    array(),
+                    filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . 'assets/frontend/single-event.css')
                 );
             }
         );
