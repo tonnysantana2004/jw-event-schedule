@@ -71,7 +71,6 @@ class Main
             }
         );
 
-
         add_action(
             'enqueue_block_editor_assets',
             function () {
