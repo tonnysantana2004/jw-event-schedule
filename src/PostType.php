@@ -1,6 +1,6 @@
 <?php
 
-namespace JWEventSchedule;
+namespace JWES;
 
 defined('ABSPATH') || exit;
 
@@ -30,7 +30,6 @@ class PostType
         );
 
         return register_post_type('event', $args);
-
     }
 
     public function create_the_taxonomy()
@@ -97,7 +96,5 @@ class PostType
                 }
             )
         );
-
     }
-
 }

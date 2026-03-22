@@ -9,12 +9,12 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
     public static $prefixLengthsPsr4 = array (
         'J' =>
         array (
-            'JWEventSchedule\\' => 16,
+            'JWES\\' => 5,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'JWEventSchedule\\' =>
+        'JWES\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

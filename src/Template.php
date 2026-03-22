@@ -1,6 +1,6 @@
 <?php
 
-namespace JWEventSchedule;
+namespace JWES;
 
 class Template
 {
