@@ -21,7 +21,7 @@ class Template
     {
         $archiveTemplate = JWES_PLUGIN_DIR . '/templates/archive-event.php';
 
-        if (is_post_type_archive('event')) {
+        if (is_post_type_archive('event') || is_tax('event_type')) {
             if (file_exists($archiveTemplate)) {
                 return $archiveTemplate;
             }
