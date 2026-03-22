@@ -62,23 +62,8 @@ class Main
             2
         );
 
-        // Single Template.
-        add_action(
-            'single_template',
-            function ($original_template) {
-                $template_class = new Template();
-                return $template_class->singleEvent($original_template);
-            }
-        );
-
-        // Archive Template.
-        add_action(
-            'archive_template',
-            function ($original_template) {
-                $template_class = new Template();
-                return $template_class->archiveEvent($original_template);
-            }
-        ); 
+        $template_class = new Template;
+        $template_class->init();
 
         // Assets
         $enqueue_scripts_class = new EnqueueScripts;
