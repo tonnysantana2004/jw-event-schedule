@@ -49,6 +49,9 @@ class PostType
                 'menu_name'     => 'Event Type',
             ),
             'hierarchical' => true,
+            'rewrite' => array(
+                'slug' => 'event-type',
+            ),
 
             // 6. REST API Integration
             'show_in_rest'           => true,
