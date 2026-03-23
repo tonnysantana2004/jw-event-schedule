@@ -133,6 +133,7 @@ wp_head();
 		</div>
 
 		<?php the_posts_pagination(); ?>
+		
 	</section>
 
 </main>
