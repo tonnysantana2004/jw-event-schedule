@@ -13,26 +13,153 @@ class PostType
 
     public function init()
     {
+        $this->create_the_post_type();
+        $this->create_the_taxonomy();
+        $this->create_the_custom_fields();
+        $this->create_listing_columns();
+        $this->create_custom_filtering_rules();
+        $this->create_custom_api_endpoint();
+    }
 
+    public function create_the_post_type()
+    {
         add_action(
             'init',
             function () {
-                $this->create_the_post_type();
-                $this->create_the_taxonomy();
+                $args = array(
+                    'labels' => array(
+                        'name'          => 'Events',
+                        'singular_name' => 'Event',
+                        'menu_name'     => 'Events',
+                        'add_new'       => 'Add New event',
+                        'add_new_item'  => 'Add New event',
+                        'new_item'      => 'New event',
+                        'edit_item'     => 'Edit event',
+                        'view_item'     => 'View event',
+                        'all_items'     => 'All events',
+                    ),
+                    'public' => true,
+                    'has_archive' => true,
+                    'rewrite' => [
+                        'slug' => 'events'
+                    ],
+
+                    // 6. REST API Integration
+                    'show_in_rest' => true,
+                    'rest_base' => 'events',
+                    'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'),
+                );
+
+                register_post_type('event', $args);
             }
         );
+    }
+
+    public function create_the_taxonomy()
+    {
+        add_action(
+            'init',
+            function () {
+                $args = array(
+                    'labels'       => array(
+                        'name'          => 'Event Types',
+                        'singular_name' => 'Event Type',
+                        'edit_item'     => 'Edit Event Type',
+                        'update_item'   => 'Update Event Type',
+                        'add_new_item'  => 'Add New Event Type',
+                        'new_item_name' => 'New Event Type Name',
+                        'menu_name'     => 'Event Type',
+                    ),
+                    'hierarchical' => true,
+                    'rewrite' => array(
+                        'slug' => 'event-type',
+                    ),
+
+                    // 6. REST API Integration
+                    'show_in_rest'           => true,
+                );
+
+                register_taxonomy('event_type', 'event', $args);
+            }
+        );
+    }
+
+    // 2. Admin Interface Enhancements:
+    public function create_the_custom_fields()
+    {
 
         add_action(
             'rest_api_init',
             function () {
-                $this->create_the_custom_fields();
+
+
+                register_meta(
+                    'post',
+                    'event_date',
+                    array(
+                        'object_subtype' => 'event',
+                        'label' => __('Event Date', 'jw-event-schedule'),
+                        'type' => 'string',
+
+                        // 6. REST API Integration
+                        'show_in_rest' => true,
+                        'single' => true,
+
+                        // 8. Security Best Practices
+                        // There is no default sanatizer for datetime
+                        'sanitize_callback' => 'sanitize_text_field',
+                        'auth_callback' => function () {
+                            return current_user_can('edit_posts');
+                        }
+                    )
+                );
+
+                register_meta(
+                    'post',
+                    'event_location',
+                    array(
+                        'object_subtype' => 'event',
+                        'label' => __('Event Location', 'jw-event-schedule'),
+                        'type' => 'string',
+
+                        // 6. REST API Integration
+                        'show_in_rest' => true,
+                        'single' => true,
+
+                        // 8. Security Best Practices
+                        'sanitize_callback' => 'sanitize_text_field',
+                        'auth_callback' => function () {
+                            return current_user_can('edit_posts');
+                        }
+                    )
+                );
+
+                register_meta(
+                    'post',
+                    'attendance_list',
+                    array(
+                        'object_subtype' => 'event',
+                        'label' => __('Attendance List', 'jw-event-schedule'),
+                        'type' => 'array',
+                        'single' => 'true',
+
+                        // 6. REST API Integration
+                        'show_in_rest' => true,
+                        'single' => true,
+
+                        // 8. Security Best Practices
+                        'sanitize_callback' => 'sanitize_text_field',
+                        'auth_callback' => function () {
+                            return current_user_can('edit_posts');
+                        }
+                    )
+                );
             }
         );
+    }
 
-        // 2. Admin Interface Enhancements
-        // TODO: use the PostType class to proccess these functionalities
-        // TODO: make the columns sortable
-        // The columns.
+    public function create_listing_columns()
+    {
         add_filter(
             'manage_event_posts_columns',
             function ($columns) {
@@ -48,7 +175,6 @@ class PostType
             }
         );
 
-        // Column Values.
         add_action(
             'manage_event_posts_custom_column',
             function ($column, $post_id) {
@@ -64,114 +190,14 @@ class PostType
             10,
             2
         );
-
-        $this->custom_filtering();
     }
 
-    public function create_the_post_type()
-    {
-        $args = array(
-            'labels' => array(
-                'name'          => 'Events',
-                'singular_name' => 'Event',
-                'menu_name'     => 'Events',
-                'add_new'       => 'Add New event',
-                'add_new_item'  => 'Add New event',
-                'new_item'      => 'New event',
-                'edit_item'     => 'Edit event',
-                'view_item'     => 'View event',
-                'all_items'     => 'All events',
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'rewrite' => [
-                'slug' => 'events'
-            ],
-
-            // 6. REST API Integration
-            'show_in_rest' => true,
-            'rest_base' => 'events',
-            'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'),
-        );
-
-        return register_post_type('event', $args);
-    }
-
-    public function create_the_taxonomy()
-    {
-        $args = array(
-            'labels'       => array(
-                'name'          => 'Event Types',
-                'singular_name' => 'Event Type',
-                'edit_item'     => 'Edit Event Type',
-                'update_item'   => 'Update Event Type',
-                'add_new_item'  => 'Add New Event Type',
-                'new_item_name' => 'New Event Type Name',
-                'menu_name'     => 'Event Type',
-            ),
-            'hierarchical' => true,
-            'rewrite' => array(
-                'slug' => 'event-type',
-            ),
-
-            // 6. REST API Integration
-            'show_in_rest'           => true,
-        );
-
-        register_taxonomy('event_type', 'event', $args);
-    }
-
-    // 2. Admin Interface Enhancements:
-    public function create_the_custom_fields()
-    {
-        register_meta(
-            'post',
-            'event_date',
-            array(
-                'object_subtype' => 'event',
-                'label' => __('Event Date', 'jw-event-schedule'),
-                'type' => 'string',
-
-                // 6. REST API Integration
-                'show_in_rest' => true,
-                'single' => true,
-
-                // 8. Security Best Practices
-                // There is no default sanatizer for datetime
-                'sanitize_callback' => 'sanitize_text_field',
-                'auth_callback' => function () {
-                    return current_user_can('edit_posts');
-                }
-            )
-        );
-
-        register_meta(
-            'post',
-            'event_location',
-            array(
-                'object_subtype' => 'event',
-                'label' => __('Event Location', 'jw-event-schedule'),
-                'type' => 'string',
-
-                // 6. REST API Integration
-                'show_in_rest' => true,
-                'single' => true,
-
-                // 8. Security Best Practices
-                'sanitize_callback' => 'sanitize_text_field',
-                'auth_callback' => function () {
-                    return current_user_can('edit_posts');
-                }
-            )
-        );
-    }
-
-    public function custom_filtering()
+    public function create_custom_filtering_rules()
     {
         add_action('pre_get_posts', function ($query) {
 
             if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
-               
+
                 if (!isset($_GET['date_range'])) {
                     return;
                 }
@@ -195,6 +221,67 @@ class PostType
 
                 $query->set('meta_query', $meta_query);
             }
+        });
+    }
+
+    public function create_custom_api_endpoint()
+    {
+
+        add_action('rest_api_init', function () {
+
+            register_rest_route('jwes/v1', '/attendance', array(
+                'methods' => 'POST',
+                'callback' => function ($request) {
+
+                    $user_id = intval(sanitize_text_field($request['user_id']));
+                    $post_id = intval(sanitize_text_field($request['post_id']));
+
+                    $current_attendance_list = get_post_meta($post_id, 'attendance_list', true) ?: [];
+
+                    if ($user_id && !in_array($user_id, $current_attendance_list)) {
+                        $current_attendance_list[] = $user_id;
+                        update_post_meta($post_id, 'attendance_list', $current_attendance_list);
+                    }
+
+                    $response_data = array(
+                        'message' => 'Attendance List Updated.',
+                        'attendance' => $current_attendance_list,
+                        'timestamp' => current_time('mysql'),
+                    );
+
+                    return rest_ensure_response($response_data);
+                },
+                'permission_callback' =>  function () {
+                    return is_user_logged_in();
+                },
+            ));
+
+            register_rest_route('jwes/v1', '/attendance', array(
+                'methods' => 'DELETE',
+                'callback' => function ($request) {
+
+                    $user_id = intval(sanitize_text_field($request['user_id']));
+                    $post_id = intval(sanitize_text_field($request['post_id']));
+
+                    $current_attendance_list = get_post_meta($post_id, 'attendance_list', true) ?: [];
+
+                    if ($user_id && in_array($user_id, $current_attendance_list)) {
+                        $current_attendance_list = array_values(array_diff($current_attendance_list, [$user_id]));
+                        update_post_meta($post_id, 'attendance_list', $current_attendance_list);
+                    }
+
+                    $response_data = array(
+                        'message' => 'Attendance List Updated.',
+                        'attendance' => $current_attendance_list,
+                        'timestamp' => current_time('mysql'),
+                    );
+
+                    return rest_ensure_response($response_data);
+                },
+                'permission_callback' =>  function () {
+                    return is_user_logged_in();
+                },
+            ));
         });
     }
 

@@ -9,7 +9,7 @@ include('header.php');
 <main>
 
 	<section class="jwes-container jwes-event-header">
-		
+
 		<?php
 
 		if (get_the_post_thumbnail_url()) {
@@ -70,7 +70,6 @@ include('header.php');
 
 				</div>
 
-
 			</div>
 
 		</div>
@@ -89,6 +88,35 @@ include('header.php');
 			?>
 
 		</div>
+
+		<?php if (is_user_logged_in()) :
+
+			$current_attendance_list = get_post_meta(get_the_ID(), 'attendance_list',true) ?: [];
+			if (!in_array(get_current_user_id(), $current_attendance_list)) {
+		?>
+
+				<form action="/wp-json/jwes/v1/attendance"  id="attendance-form">
+					<input type="hidden" name="post_id" value="<?= get_the_ID() ?>">
+					<input type="hidden" name="user_id" value="<?= get_current_user_id() ?>">
+					<button class="jwes-btn jwes-btn-primary" type="submit" style="width:fit-content" id="confirm-attendance">Confirm Attendance</button>
+				</form>
+
+			<?php
+			} else {
+			?>
+				<form action="/wp-json/jwes/v1/attendance" id="cancel-attendance-form">
+					<input type="hidden" name="post_id" value="<?= get_the_ID() ?>">
+					<input type="hidden" name="user_id" value="<?= get_current_user_id() ?>">
+					<button class="jwes-btn jwes-btn-danger" type="submit" style="width:fit-content" id="cancel-attendance">Cancel Attendance</button>
+				</form>
+
+
+			<?php } ?>
+
+		<?php else :  ?>
+			<a class="jwes-btn jwes-btn-primary" href="/wp-login.php?redirect_to=/events/wordpress-convention/#confirm-attendance" style="width:fit-content">Login to confirm Attendance</a>
+		<?php endif; ?>
+
 	</section>
 
 	<hr>
