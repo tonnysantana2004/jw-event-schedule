@@ -38,6 +38,7 @@ class EnqueueScripts
 
                 if (is_singular('event')) {
                     $this->enqueue_style('assets/frontend/single-event.css');
+                    $this->enqueue_script('assets/frontend/single-event.js', ['wp-api-fetch']);
                 }
 
                 if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
