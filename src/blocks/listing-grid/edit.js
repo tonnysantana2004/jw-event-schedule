@@ -32,7 +32,7 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<p { ...useBlockProps() }>
-			{ __( 'Listing Grid – hello from the editor!', 'listing-grid' ) }
+			{ __( 'Listing Grid – Open on the Frontend!', 'listing-grid' ) }
 		</p>
 	);
 }
