@@ -3,7 +3,6 @@
 namespace JWES;
 
 use DateTime;
-use DateTimeZone;
 
 defined('ABSPATH') || exit;
 
@@ -28,15 +27,15 @@ class PostType
             function () {
                 $args = array(
                     'labels' => array(
-                        'name'          => 'Events',
-                        'singular_name' => 'Event',
-                        'menu_name'     => 'Events',
-                        'add_new'       => 'Add New event',
-                        'add_new_item'  => 'Add New event',
-                        'new_item'      => 'New event',
-                        'edit_item'     => 'Edit event',
-                        'view_item'     => 'View event',
-                        'all_items'     => 'All events',
+                        'name'          => esc_html__('Events','jw-event-schedule'),
+                        'singular_name' => esc_html__('Event','jw-event-schedule'),
+                        'menu_name'     => esc_html__('Events','jw-event-schedule'),
+                        'add_new'       => esc_html__('Add New event','jw-event-schedule'),
+                        'add_new_item'  => esc_html__('Add New event','jw-event-schedule'),
+                        'new_item'      => esc_html__('New event','jw-event-schedule'),
+                        'edit_item'     => esc_html__('Edit event','jw-event-schedule'),
+                        'view_item'     => esc_html__('View event','jw-event-schedule'),
+                        'all_items'     => esc_html__('All events','jw-event-schedule'),
                     ),
                     'public' => true,
                     'has_archive' => true,
@@ -62,13 +61,13 @@ class PostType
             function () {
                 $args = array(
                     'labels'       => array(
-                        'name'          => 'Event Types',
-                        'singular_name' => 'Event Type',
-                        'edit_item'     => 'Edit Event Type',
-                        'update_item'   => 'Update Event Type',
-                        'add_new_item'  => 'Add New Event Type',
-                        'new_item_name' => 'New Event Type Name',
-                        'menu_name'     => 'Event Type',
+                        'name'          => esc_html__('Event Types','jw-event-schedule'),
+                        'singular_name' => esc_html__('Event Type','jw-event-schedule'),
+                        'edit_item'     => esc_html__('Edit Event Type','jw-event-schedule'),
+                        'update_item'   => esc_html__('Update Event Type','jw-event-schedule'),
+                        'add_new_item'  => esc_html__('Add New Event Type','jw-event-schedule'),
+                        'new_item_name' => esc_html__('New Event Type Name','jw-event-schedule'),
+                        'menu_name'     => esc_html__('Event Type','jw-event-schedule'),
                     ),
                     'hierarchical' => true,
                     'rewrite' => array(
@@ -98,7 +97,7 @@ class PostType
                     'event_date',
                     array(
                         'object_subtype' => 'event',
-                        'label' => __('Event Date', 'jw-event-schedule'),
+                        'label' => esc_html__('Event Date', 'jw-event-schedule'),
                         'type' => 'string',
 
                         // 6. REST API Integration
@@ -119,7 +118,7 @@ class PostType
                     'event_location',
                     array(
                         'object_subtype' => 'event',
-                        'label' => __('Event Location', 'jw-event-schedule'),
+                        'label' => esc_html__('Event Location', 'jw-event-schedule'),
                         'type' => 'string',
 
                         // 6. REST API Integration
@@ -139,7 +138,7 @@ class PostType
                     'attendance_list',
                     array(
                         'object_subtype' => 'event',
-                        'label' => __('Attendance List', 'jw-event-schedule'),
+                        'label' => esc_html__('Attendance List', 'jw-event-schedule'),
                         'type' => 'array',
                         'single' => 'true',
 
@@ -204,6 +203,7 @@ class PostType
 
                 $dates = explode('to', $_GET['date_range']);
 
+                // 8. Security Best Practices
                 $date1 = sanitize_text_field(trim($dates[0]));
                 $date2 = sanitize_text_field(trim($dates[1]));
 
@@ -244,7 +244,7 @@ class PostType
                     }
 
                     $response_data = array(
-                        'message' => 'Attendance List Updated.',
+                        'message' => esc_html__('Attendance List Updated.', 'jw-event-schedule'),
                         'attendance' => $current_attendance_list,
                         'timestamp' => current_time('mysql'),
                     );
@@ -271,7 +271,7 @@ class PostType
                     }
 
                     $response_data = array(
-                        'message' => 'Attendance List Updated.',
+                        'message' => esc_html__('Attendance List Updated.', 'jw-event-schedule'),
                         'attendance' => $current_attendance_list,
                         'timestamp' => current_time('mysql'),
                     );
@@ -290,7 +290,7 @@ class PostType
 
         $event_date = get_post_meta($post_id, 'event_date', true);
 
-        if (empty($event_date)) return 'To decide';
+        if (empty($event_date)) return esc_html__('To decide', 'jw-event-schedule');
 
         $timestamp_format = "";
 
@@ -313,6 +313,6 @@ class PostType
     public static function get_the_event_location_formated($post_id): string
     {
         $location = get_post_meta($post_id, 'event_location', true);
-        return $location ? esc_html($location) : 'Online';
+        return $location ? esc_html($location) : esc_html__('Online.', 'jw-event-schedule');
     }
 }

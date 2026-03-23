@@ -27,16 +27,16 @@
                     </defs>
                 </svg>
                 <span class="jwes-title jwes-title-3">
-                    Event Scheduler
+                    <?= esc_html__('Event Scheduler', 'jw-event-schedule') ?>
                 </span>
 
             </div>
 
             <ul class="jwes-nav-menu">
-                <li>Home</li>
-                <li><a href="/events">Events</a></li>
-                <li>About Us</li>
-                <li>Courses</li>
+                <li><?= esc_html__('Home', 'jw-event-schedule') ?></li>
+                <li><a href="/events"><?= esc_html__('Events', 'jw-event-schedule') ?></a></li>
+                <li><?= esc_html__('About Us', 'jw-event-schedule') ?></li>
+                <li><?= esc_html__('Courses', 'jw-event-schedule') ?></li>
             </ul>
         </nav>
     </header>

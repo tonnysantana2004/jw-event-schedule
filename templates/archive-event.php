@@ -12,17 +12,18 @@ wp_head();
 
 	<section class="jwes-container">
 
+		<!-- 4. Search and Filtering Functionality -->
 		<form method="get" class="jwes-form">
 			<div class="jwes-field-control jwes-text jwes-text-3">
-				<label for="search-by-title">Search by title</label>
-				<input type="text" id="search-by-title" name="s" placeholder="Start typing..." value="<?= isset($_GET['s']) ? $_GET['s'] : '' ?>">
+				<label for="search-by-title"><?= esc_html__('Search by title', 'jw-event-schedule')?></label>
+				<input type="text" id="search-by-title" name="s" placeholder="<?= esc_html__('Start typing...', 'jw-event-schedule') ?>" value="<?= isset($_GET['s']) ? $_GET['s'] : '' ?>">
 			</div>
 
 			<div class="jwes-field-control jwes-text jwes-text-3">
-				<label for="event-type">Event Type</label>
+				<label for="event-type"><?= esc_html__('Event Type', 'jw-event-schedule')?></label>
 				<select name="event_type" id="event-type">
 
-					<option value="">Select an option</option>
+					<option value=""><?= esc_html__('Select an option', 'jw-event-schedule')?></option>
 
 					<?php
 
@@ -51,13 +52,15 @@ wp_head();
 								$selected = true;
 							}
 
-							if (is_tax('event_type', $term['name'])) {
+							if (is_tax('event_type', $term['slug'])) {
 								$selected = true;
 							}
 
 							echo $selected ? 'selected' : '';
 							?>>
-							<?= $term['name'] ?>
+
+							<?= esc_html__($term['name'], 'jw-event-schedule') ?>
+
 						</option>
 
 					<?php endforeach; ?>
@@ -65,14 +68,14 @@ wp_head();
 			</div>
 
 			<div class="jwes-field-control jwes-text jwes-text-3" style="flex-grow:1">
-				<label for="date-range">Date Range</label>
-				<input type="text" id="date-range" name="date_range" value="<?= isset($_GET['date_range']) ? $_GET['date_range'] : '' ?>" placeholder="Select a date">
+				<label for="date-range"><?= esc_html__('Date Range', 'jw-event-schedule') ?></label>
+				<input type="text" id="date-range" name="date_range" value="<?= isset($_GET['date_range']) ? $_GET['date_range'] : '' ?>" placeholder="<?= esc_html__('Select a date', 'jw-event-schedule') ?>">
 			</div>
 
 			<a href="/events">
-				<button type="button" class="jwes-btn jwes-btn-danger">Reset</button>
+				<button type="button" class="jwes-btn jwes-btn-danger"><?= esc_html__('Reset', 'jw-event-schedule') ?></button>
 			</a>
-			<button type="submit" class="jwes-btn jwes-btn-primary">Filter</button>
+			<button type="submit" class="jwes-btn jwes-btn-primary"><?= esc_html__('Filter', 'jw-event-schedule') ?></button>
 
 		</form>
 	</section>
@@ -126,7 +129,7 @@ wp_head();
 			<?php endwhile;
 
 			if (!have_posts()) : ?>
-				<p class="jwes-text jwes-text-2">Nothing was found.</p>
+				<p class="jwes-text jwes-text-2"><?= esc_html__('Nothing was found.', 'jw-event-schedule') ?></p>
 			<?php endif; ?>
 
 
