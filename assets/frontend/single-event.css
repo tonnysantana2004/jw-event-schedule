@@ -1,4 +1,4 @@
-.event-header {
+.jwes-event-header {
 
     & img {
         width: 100%;
@@ -11,20 +11,20 @@
 }
 
 
-.event-intro {
+.jwes-event-intro {
     margin: var(--space-md) 0;
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
 }
 
-.info-boxes {
+.jwes-info-boxes {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-md);
 }
 
-.info-box:nth-child(1) {
+.jwes-info-box:nth-child(1) {
     background-color: var(--secondary-color);
 
     & .info-box-header {
@@ -34,7 +34,7 @@
     }
 }
 
-.info-box {
+.jwes-info-box {
     display: flex;
     flex-direction: column;
     padding: var(--space-sm);
@@ -42,13 +42,13 @@
     border-radius: var(--radius-sm);
     gap: var(--space-sm);
 
-    & .info-box-header {
+    & .jwes-info-box-header {
         display: flex;
         gap: var(--space-sm);
         align-items: center;
         color: white;
 
-        & .info-box-icon {
+        & .jwes-info-box-icon {
             width: 27px;
             height: 27px;
             padding: 4px;
@@ -61,7 +61,7 @@
     }
 
 
-    & .info-box-description {
+    & .jwes-info-box-description {
 
         display: flex;
         gap: var(--space-sm);
