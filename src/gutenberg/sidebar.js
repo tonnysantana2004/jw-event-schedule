@@ -26,18 +26,23 @@ const EventDetailsPanel = (props) => {
 
     // Convert a ISO8601 value to timestamp
     const toTimeStamp = (value) => {
+
         if (value !== null && value !== '') {
             const timestamp = Math.floor(new Date(value).getTime() / 1000);
             return timestamp;
         }
-        return '';
+
+        return Math.floor((Date().Now) / 1000);
     };
 
     // Convert a timestamp value to ISO8601
     const toISO8601 = (value) => {
+
         if (value !== null && value !== '') {
             return new Date(value * 1000).toISOString();
         }
+
+        return new Date().toISOString();
     }
 
     return (
@@ -58,8 +63,9 @@ const EventDetailsPanel = (props) => {
                     onChange={
                         (value) => updateCustomMeta(toTimeStamp(value), 'event_date')
                     }
-                    currentDate={toISO8601(getCustomMetaValue('event_date')  )}
+                    currentDate={toISO8601(getCustomMetaValue('event_date'))}
                     is12Hour={true}
+                    required
                 />
             </div>
         </PluginDocumentSettingPanel>

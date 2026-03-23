@@ -170,33 +170,40 @@ class PostType
     {
         add_action('pre_get_posts', function ($query) {
 
-            if (!isset($_GET['date_range'])) {
-                return;
+            if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
+               
+                if (!isset($_GET['date_range'])) {
+                    return;
+                }
+
+                $dates = explode('to', $_GET['date_range']);
+
+                $date1 = sanitize_text_field(trim($dates[0]));
+                $date2 = sanitize_text_field(trim($dates[1]));
+
+                $start = (new DateTime($date1 ?? '1980-1-1'))->setTime(0, 0)->format('U');
+                $end   = (new DateTime($date2 ?? '2030-1-1'))->setTime(23, 59, 59)->format('U');
+
+                $meta_query = $query->get('meta_query') ?: [];
+
+                $meta_query[] = [
+                    'key'     => 'event_date',
+                    'value'   => [$start, $end],
+                    'compare' => 'BETWEEN',
+                    'type'    => 'NUMERIC'
+                ];
+
+                $query->set('meta_query', $meta_query);
             }
-
-            // if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
-
-            [$start, $end] = explode('to', $_GET['date_range']);
-
-            $start = (new DateTime(trim($start)))->setTime(0, 0)->format('U');
-            $end   = (new DateTime(trim($end)))->setTime(23, 59, 59)->format('U');
-
-            $meta_query = $query->get('meta_query') ?: [];
-
-            $meta_query[] = [
-                'key'     => 'event_date',
-                'value'   => [$start, $end],
-                'compare' => 'BETWEEN',
-                'type'    => 'NUMERIC'
-            ];
-
-            $query->set('meta_query', $meta_query);
-            // }
         });
     }
 
     public static function get_the_event_date_formated($post_id, $include_date = true, $include_hour = true): string
     {
+
+        $event_date = get_post_meta($post_id, 'event_date', true);
+
+        if (empty($event_date)) return 'To decide';
 
         $timestamp_format = "";
 
@@ -212,7 +219,7 @@ class PostType
             $timestamp_format .= get_option('time_format');
         }
 
-        $date = wp_date($timestamp_format, get_post_meta($post_id, 'event_date', true));
+        $date = wp_date($timestamp_format, $event_date);
         return esc_html($date);
     }
 

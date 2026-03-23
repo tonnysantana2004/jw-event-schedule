@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    flatpickr("#dateRange", {
+    flatpickr("#date-range", {
         mode: "range",
         dateFormat: "Y-m-d"
     });
