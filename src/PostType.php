@@ -2,11 +2,72 @@
 
 namespace JWES;
 
+use DateTime;
+use DateTimeZone;
+
 defined('ABSPATH') || exit;
 
 // 1. Custom Post Type and Taxonomies
 class PostType
 {
+
+    public function init()
+    {
+
+        add_action(
+            'init',
+            function () {
+                $this->create_the_post_type();
+                $this->create_the_taxonomy();
+            }
+        );
+
+        add_action(
+            'rest_api_init',
+            function () {
+                $this->create_the_custom_fields();
+            }
+        );
+
+        // 2. Admin Interface Enhancements
+        // TODO: use the PostType class to proccess these functionalities
+        // TODO: make the columns sortable
+        // The columns.
+        add_filter(
+            'manage_event_posts_columns',
+            function ($columns) {
+
+                $new_columns = array(
+                    'title'          => $columns['title'],
+                    'event_date'     => 'Event Date',
+                    'event_location' => 'Event Location',
+                    'date'           => $columns['date'],
+                );
+
+                return $new_columns;
+            }
+        );
+
+        // Column Values.
+        add_action(
+            'manage_event_posts_custom_column',
+            function ($column, $post_id) {
+
+                if ('event_date' === $column) {
+                    echo PostType::get_the_event_date_formated($post_id);
+                }
+
+                if ('event_location' === $column) {
+                    echo PostType::get_the_event_location_formated($post_id);
+                }
+            },
+            10,
+            2
+        );
+
+        $this->custom_filtering();
+    }
+
     public function create_the_post_type()
     {
         $args = array(
@@ -105,10 +166,37 @@ class PostType
         );
     }
 
+    public function custom_filtering()
+    {
+        add_action('pre_get_posts', function ($query) {
+
+            if (!isset($_GET['date_range'])) {
+                return;
+            }
+
+            // if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
+
+            [$start, $end] = explode('to', $_GET['date_range']);
+
+            $start = (new DateTime(trim($start)))->setTime(0, 0)->format('U');
+            $end   = (new DateTime(trim($end)))->setTime(23, 59, 59)->format('U');
+
+            $meta_query = $query->get('meta_query') ?: [];
+
+            $meta_query[] = [
+                'key'     => 'event_date',
+                'value'   => [$start, $end],
+                'compare' => 'BETWEEN',
+                'type'    => 'NUMERIC'
+            ];
+
+            $query->set('meta_query', $meta_query);
+            // }
+        });
+    }
+
     public static function get_the_event_date_formated($post_id, $include_date = true, $include_hour = true): string
     {
-        $value      = get_post_meta($post_id, 'event_date', true);
-        $timestamp  = strtotime($value);
 
         $timestamp_format = "";
 
@@ -124,7 +212,7 @@ class PostType
             $timestamp_format .= get_option('time_format');
         }
 
-        $date = date_i18n($timestamp_format, $timestamp);
+        $date = wp_date($timestamp_format, get_post_meta($post_id, 'event_date', true));
         return esc_html($date);
     }
 
