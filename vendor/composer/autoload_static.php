@@ -8,12 +8,41 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
 {
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '3937806105cc8e221b8fa8db5b70d2f2' => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/includes/functions.php',
+        'be01b9b16925dcb22165c40b46681ac6' => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib/cli/cli.php',
+        'ffb465a494c3101218c4417180c2c9a2' => __DIR__ . '/..' . '/wp-cli/i18n-command/i18n-command.php',
+        '7d3b315c4f303f2fc14aca642a738e50' => __DIR__ . '/..' . '/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'e' =>
+        array (
+            'eftec\\bladeone\\' => 15,
+        ),
+        'W' =>
+        array (
+            'WP_CLI\\I18n\\' => 12,
+        ),
+        'S' =>
+        array (
+            'Symfony\\Component\\Finder\\' => 25,
+        ),
+        'P' =>
+        array (
+            'Peast\\' => 6,
+        ),
+        'M' =>
+        array (
+            'Mustangostang\\' => 14,
+        ),
         'J' =>
         array (
             'JWES\\' => 5,
+        ),
+        'G' =>
+        array (
+            'Gettext\\Languages\\' => 18,
+            'Gettext\\' => 8,
         ),
         'D' =>
         array (
@@ -23,9 +52,37 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
     );
 
     public static $prefixDirsPsr4 = array (
+        'eftec\\bladeone\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/eftec/bladeone/lib',
+        ),
+        'WP_CLI\\I18n\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wp-cli/i18n-command/src',
+        ),
+        'Symfony\\Component\\Finder\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Peast\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/mck89/peast/lib/Peast',
+        ),
+        'Mustangostang\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/src',
+        ),
         'JWES\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Gettext\\Languages\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/gettext/languages/src',
+        ),
+        'Gettext\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/gettext/gettext/src',
         ),
         'Doctrine\\Instantiator\\' =>
         array (
@@ -34,6 +91,30 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
         'DeepCopy\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'c' =>
+        array (
+            'cli' =>
+            array (
+                0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
+            ),
+        ),
+        'W' =>
+        array (
+            'WP_CLI\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/wp-cli/wp-cli/php',
+            ),
+        ),
+        'M' =>
+        array (
+            'Mustache' =>
+            array (
+                0 => __DIR__ . '/..' . '/wp-cli/mustache/src',
+            ),
         ),
     );
 
@@ -625,6 +706,8 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
         'TheSeer\\Tokenizer\\TokenCollectionException' => __DIR__ . '/..' . '/theseer/tokenizer/src/TokenCollectionException.php',
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
+        'WP_CLI' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli.php',
+        'WP_CLI_Command' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli-command.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -632,6 +715,7 @@ class ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitefe57aeb3631fcce5b52e169483aeb9f::$classMap;
 
         }, null, ClassLoader::class);

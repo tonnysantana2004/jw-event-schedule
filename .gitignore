@@ -4,10 +4,11 @@
 Thumbs.db
 wp-cli.local.yml
 node_modules/
-!/vendor/myclabs
-!/vendor/composer
-!/vendor/bin
-!/vendor/autoload.php
+/vendor/doctrine
+/vendor/phar-io
+/vendor/phpunit
+/vendor/sebastian
+/vendor/theseer
 *.sql
 *.tar.gz
 *.zip
