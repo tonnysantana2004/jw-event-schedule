@@ -1,17 +1,21 @@
+main {
+    min-height: 680px;
+}
+
 .listing-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:var(--space-sm);
+    gap: var(--space-sm);
 }
 
 .listing-item {
-    width:auto;
+    width: auto;
     display: flex;
     flex-direction: column;
     position: relative;
-    gap:var(--space-sm);
-    transition:all.4s;
-    padding:var(--space-md);
+    gap: var(--space-sm);
+    transition: all.4s;
+    padding: var(--space-md);
     border: solid 1px var(--border-color);
     border-radius: var(--radius-sm);
 
