@@ -11,36 +11,12 @@ wp_head();
 <main>
 
 	<section class="container">
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
 
-				flatpickr("#dateRange", {
-					mode: "range",
-					dateFormat: "Y-m-d"
-				});
-
-				const filterForm = document.querySelector('form');
-
-				filterForm.addEventListener('submit', (event) => {
-					event.preventDefault();
-
-					const formData = new FormData(filterForm);
-
-					const newUrl = new URL(window.location.origin + '/events');
-
-					Array.from(formData.entries()).forEach(([key, value]) => {
-						if (value != null && value != '') {
-							newUrl.searchParams.set(key, value)
-						}
-					});
-					window.location.href = newUrl.href;
-				})
-			})
-		</script>
 		<form method="get">
 			<input type="text" name="s" placeholder="Start typing..." value="<?= isset($_GET['s']) ? $_GET['s'] : '' ?>">
 
 			<select name="event_type" id="event_type">
+
 				<option value="">Select an option</option>
 
 				<?php
@@ -54,12 +30,26 @@ wp_head();
 
 					<option
 						value="<?= $term->slug ?>"
-						<?= (isset($_GET['event_type']) && $_GET['event_type'] === $term->slug) ? 'selected' : '' ?>>
+
+						<?php
+						$selected = false;
+
+						if (isset($_GET['event_type']) && $_GET['event_type'] === $term->slug) {
+							$selected = true;
+						}
+
+						if (is_tax('event_type', $term->name)) {
+							$selected = true;
+						}
+
+						echo $selected ? 'selected' : '';
+						?>>
 						<?= $term->name ?>
 					</option>
 
 				<?php endforeach; ?>
 			</select>
+			
 			<input type="text" id="dateRange" name="date_range" value="<?= isset($_GET['date_range']) ? $_GET['date_range'] : '' ?>">
 
 			<input type="submit" value="Filter">

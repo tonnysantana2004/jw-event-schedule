@@ -43,6 +43,7 @@ class EnqueueScripts
                 if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
 
                     $this->enqueue_style('assets/frontend/archive-event.css');
+                    $this->enqueue_script('assets/frontend/archive-event.js');
 
                     $this->enqueue_style('assets/flatpickr/style.css');
                     $this->enqueue_script('assets/flatpickr/script.js');
