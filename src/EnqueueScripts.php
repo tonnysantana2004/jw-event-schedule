@@ -40,8 +40,12 @@ class EnqueueScripts
                     $this->enqueue_style('assets/frontend/single-event.css');
                 }
 
-                if (is_post_type_archive('event') || is_tax('event_type')) {
+                if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
+
                     $this->enqueue_style('assets/frontend/archive-event.css');
+
+                    $this->enqueue_style('assets/flatpickr/style.css');
+                    $this->enqueue_script('assets/flatpickr/script.js');
                 }
             }
         );
