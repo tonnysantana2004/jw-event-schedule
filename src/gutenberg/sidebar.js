@@ -21,8 +21,24 @@ const EventDetailsPanel = (props) => {
     };
 
     const updateCustomMeta = (newValue, fieldName) => {
-        setMeta({ ...meta, [fieldName]: newValue });
+        setMeta({ ...meta, [fieldName]: newValue.toString() });
     };
+
+    // Convert a ISO8601 value to timestamp
+    const toTimeStamp = (value) => {
+        if (value !== null && value !== '') {
+            const timestamp = Math.floor(new Date(value).getTime() / 1000);
+            return timestamp;
+        }
+        return '';
+    };
+
+    // Convert a timestamp value to ISO8601
+    const toISO8601 = (value) => {
+        if (value !== null && value !== '') {
+            return new Date(value * 1000).toISOString();
+        }
+    }
 
     return (
         <PluginDocumentSettingPanel
@@ -40,9 +56,9 @@ const EventDetailsPanel = (props) => {
             <div class="date-picker-wrapper">
                 <DateTimePicker
                     onChange={
-                        (value) => updateCustomMeta(value, 'event_date')
+                        (value) => updateCustomMeta(toTimeStamp(value), 'event_date')
                     }
-                    currentDate={getCustomMetaValue('event_date')}
+                    currentDate={toISO8601(getCustomMetaValue('event_date')  )}
                     is12Hour={true}
                 />
             </div>
