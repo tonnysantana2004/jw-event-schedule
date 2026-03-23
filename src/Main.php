@@ -4,6 +4,7 @@ namespace JWES;
 
 use JWES\PostType;
 use JWES\Template;
+use JWES\Notifications;
 
 class Main
 {
@@ -17,5 +18,8 @@ class Main
 
         $enqueue_scripts_class = new EnqueueScripts;
         $enqueue_scripts_class->init();
+
+        $notifications = new Notifications();
+        $notifications->init();
     }
 }
