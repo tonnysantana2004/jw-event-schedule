@@ -10,101 +10,129 @@ wp_head();
 
 <main>
 
-	<section class="container">
+	<section class="jwes-container">
 
-		<form method="get">
-			<input type="text" name="s" placeholder="Start typing..." value="<?= isset($_GET['s']) ? $_GET['s'] : '' ?>">
+		<form method="get" class="jwes-form">
+			<div class="jwes-field-control jwes-text jwes-text-3">
+				<label for="search-by-title">Search by title</label>
+				<input type="text" id="search-by-title" name="s" placeholder="Start typing..." value="<?= isset($_GET['s']) ? $_GET['s'] : '' ?>">
+			</div>
 
-			<select name="event_type" id="event_type">
+			<div class="jwes-field-control jwes-text jwes-text-3">
+				<label for="event-type">Event Type</label>
+				<select name="event_type" id="event-type">
 
-				<option value="">Select an option</option>
+					<option value="">Select an option</option>
 
-				<?php
+					<?php
 
-				$terms = get_terms([
-					'taxonomy' => 'event_type',
-					'hide_empty' => false,
-				]);
+					// Optmizing the term query: get only the needed fields
+					$terms = get_terms([
+						'taxonomy' => 'event_type',
+						'hide_empty' => false,
+						'fields' => 'ids'
+					]);
 
-				foreach ($terms as $term) : ?>
+					$terms = array_map(fn($id) => [
+						'id' => $id,
+						'slug' => get_term_field('slug', $id),
+						'name' => get_term_field('name', $id)
+					], $terms);
 
-					<option
-						value="<?= $term->slug ?>"
+					foreach ($terms as $term) : ?>
 
-						<?php
-						$selected = false;
+						<option
+							value="<?= $term['slug'] ?>"
 
-						if (isset($_GET['event_type']) && $_GET['event_type'] === $term->slug) {
-							$selected = true;
-						}
+							<?php
+							$selected = false;
 
-						if (is_tax('event_type', $term->name)) {
-							$selected = true;
-						}
+							if (isset($_GET['event_type']) && $_GET['event_type'] === $term['slug']) {
+								$selected = true;
+							}
 
-						echo $selected ? 'selected' : '';
-						?>>
-						<?= $term->name ?>
-					</option>
+							if (is_tax('event_type', $term['name'])) {
+								$selected = true;
+							}
 
-				<?php endforeach; ?>
-			</select>
-			
-			<input type="text" id="dateRange" name="date_range" value="<?= isset($_GET['date_range']) ? $_GET['date_range'] : '' ?>">
+							echo $selected ? 'selected' : '';
+							?>>
+							<?= $term['name'] ?>
+						</option>
 
-			<input type="submit" value="Filter">
+					<?php endforeach; ?>
+				</select>
+			</div>
+
+			<div class="jwes-field-control jwes-text jwes-text-3" style="flex-grow:1">
+				<label for="date-range">Date Range</label>
+				<input type="text" id="date-range" name="date_range" value="<?= isset($_GET['date_range']) ? $_GET['date_range'] : '' ?>" placeholder="Select a date">
+			</div>
+
+			<a href="/events">
+				<button type="button" class="jwes-btn jwes-btn-danger">Reset</button>
+			</a>
+			<button type="submit" class="jwes-btn jwes-btn-primary">Filter</button>
 
 		</form>
 	</section>
 
-	<section class="container">
-		<div class="listing-grid">
+	<hr>
+
+	<section class="jwes-container">
+		<div class="jwes-listing-grid">
 
 			<?php while (have_posts()) : the_post() ?>
-				<a class="listing-item" href="<?= the_permalink() ?>">
+				<a class="jwes-listing-item" href="<?= the_permalink() ?>">
 
-					<?php echo the_post_thumbnail(); ?>
-					<h3 class="title title-4">
+					<?php
+
+					if (get_the_post_thumbnail_url()) {
+						the_post_thumbnail();
+					} else { ?>
+
+						<img src="<?= plugins_url('assets/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?> ?>">
+
+					<?php }; ?>
+
+					<h3 class="jwes-title jwes-title-4 jwes-line-limit-1">
 						<?php echo the_title(); ?>
 					</h3>
-					<div class="text text-3 line-limit-3 ">
-						<?php echo the_excerpt_embed() ?>
+
+					<div class="jwes-text jwes-text-3 jwes-line-limit-3 ">
+						<?php
+
+						$excerpt =  get_the_excerpt();
+
+						echo $excerpt ? $excerpt : esc_html("We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.");
+
+						?>
+
 					</div>
 
-					<?php if (get_post_meta(get_the_ID(), 'event_date', true)) : ?>
+					<div class="jwes-info-box-description jwes-text jwes-text-3">
+						<span>
+							<?= PostType::get_the_event_date_formated(get_the_ID(), true, false); ?>
 
-						<div class="info-box">
+						</span>
+						<span>
+							<?= PostType::get_the_event_location_formated(get_the_ID()); ?>
+						</span>
+					</div>
 
-							<div class="info-box-header">
-
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="info-box-icon">
-									<path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
-								</svg>
-
-								<h3 class="title title-5">Event Date</h3>
-
-							</div>
-
-							<div class="info-box-description text text-3">
-								<span>
-									<?= PostType::get_the_event_date_formated(get_the_ID(), true, false); ?>
-								</span>
-								<span><?= PostType::get_the_event_date_formated(get_the_ID(), false, true); ?></span>
-							</div>
-
-						</div>
-
-					<?php endif; ?>
 
 				</a>
 
 			<?php endwhile;
 
 			if (!have_posts()) : ?>
-				<p class="text text-2">Nothing was found.</p>
+				<p class="jwes-text jwes-text-2">Nothing was found.</p>
 			<?php endif; ?>
 
+
 		</div>
+
+		<?php the_posts_pagination(); ?>
 	</section>
 
 </main>
