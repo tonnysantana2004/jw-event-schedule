@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --space-sm: 12px;
     --space-md: 24px;
@@ -251,5 +255,51 @@ header {
 
     & select:has(option[value=""]:checked) {
         color: var(--placeholder-color);
+    }
+}
+
+@media screen and (max-width:980px) {
+    .jwes-container {
+        max-width: 370px;
+    }
+
+    header {
+        padding: var(--space-md);
+        height:auto;
+        & .jwes-container {
+            gap: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+        }
+
+        & .jwes-nav-menu{
+            margin:auto;
+        }
+    }
+
+    .jwes-form {
+        display: grid;
+        grid-template-columns: minmax(0,1fr)minmax(0,1fr);
+        justify-content: center;
+    }
+
+    & .jwes-field-control:nth-child(3){
+        grid-column: span 2;
+    }
+
+    & a > .jwes-btn {
+        width: 100%;
+    }
+
+    .jwes-listing-grid {
+        grid-template-columns: 1fr!important;
+
+        & .jwes-listing-item {
+            width:auto;
+        }
+    }
+
+    & .jwes-info-box-description {
+        flex-wrap: wrap;
     }
 }
