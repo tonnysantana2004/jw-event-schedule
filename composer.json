@@ -1,8 +1,13 @@
 {
+  "name": "jwes/jw-event-schedule",
+  "type": "wordpress-plugin",
   "autoload": {
     "psr-4": {
       "JWES\\": "src/"
     }
+  },
+  "require": {
+    "phpunit/phpunit": "^8.0"
   },
   "require-dev": {
     "wp-cli/i18n-command": "^2",
@@ -10,8 +15,5 @@
   },
   "scripts": {
     "makepot": "wp i18n make-pot ."
-  },
-  "require": {
-    "phpunit/phpunit": "^8.0"
   }
 }
