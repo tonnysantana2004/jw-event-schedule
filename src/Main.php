@@ -15,7 +15,6 @@ class Main
         $template_class = new Template;
         $template_class->init();
 
-        // Assets
         $enqueue_scripts_class = new EnqueueScripts;
         $enqueue_scripts_class->init();
     }
