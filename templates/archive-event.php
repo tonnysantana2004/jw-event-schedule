@@ -4,6 +4,11 @@ use \JWES\PostType;
 
 wp_head();
 
+$terms = get_terms([
+	'taxonomy' => 'event_type',
+	'hide_empty' => 'false'
+]);
+
 ?>
 
 <?php include('header.php'); ?>
@@ -11,8 +16,27 @@ wp_head();
 <main>
 
 	<section class="container">
-		<form>
+		<form method="get">
 			<input type="text" name="search" placeholder="Start typing...">
+
+			<select name="event_type" id="event_type">
+				<option value="">Select an option</option>
+
+				<?php
+
+				foreach ($terms as $term) : ?>
+
+					<option
+						value="<?= $term->slug ?>"
+						<?= ($_GET['event_type'] === $term->slug) ? 'selected' : '' ?>>
+						<?= $term->name ?>
+					</option>
+
+				<?php endforeach; ?>
+			</select>
+
+			<input type="submit" value="Filter">
+
 		</form>
 	</section>
 
