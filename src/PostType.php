@@ -27,15 +27,15 @@ class PostType
             function () {
                 $args = array(
                     'labels' => array(
-                        'name'          => esc_html__('Events','jw-event-schedule'),
-                        'singular_name' => esc_html__('Event','jw-event-schedule'),
-                        'menu_name'     => esc_html__('Events','jw-event-schedule'),
-                        'add_new'       => esc_html__('Add New event','jw-event-schedule'),
-                        'add_new_item'  => esc_html__('Add New event','jw-event-schedule'),
-                        'new_item'      => esc_html__('New event','jw-event-schedule'),
-                        'edit_item'     => esc_html__('Edit event','jw-event-schedule'),
-                        'view_item'     => esc_html__('View event','jw-event-schedule'),
-                        'all_items'     => esc_html__('All events','jw-event-schedule'),
+                        'name'          => esc_html__('Events', 'jw-event-schedule'),
+                        'singular_name' => esc_html__('Event', 'jw-event-schedule'),
+                        'menu_name'     => esc_html__('Events', 'jw-event-schedule'),
+                        'add_new'       => esc_html__('Add New event', 'jw-event-schedule'),
+                        'add_new_item'  => esc_html__('Add New event', 'jw-event-schedule'),
+                        'new_item'      => esc_html__('New event', 'jw-event-schedule'),
+                        'edit_item'     => esc_html__('Edit event', 'jw-event-schedule'),
+                        'view_item'     => esc_html__('View event', 'jw-event-schedule'),
+                        'all_items'     => esc_html__('All events', 'jw-event-schedule'),
                     ),
                     'public' => true,
                     'has_archive' => true,
@@ -61,13 +61,13 @@ class PostType
             function () {
                 $args = array(
                     'labels'       => array(
-                        'name'          => esc_html__('Event Types','jw-event-schedule'),
-                        'singular_name' => esc_html__('Event Type','jw-event-schedule'),
-                        'edit_item'     => esc_html__('Edit Event Type','jw-event-schedule'),
-                        'update_item'   => esc_html__('Update Event Type','jw-event-schedule'),
-                        'add_new_item'  => esc_html__('Add New Event Type','jw-event-schedule'),
-                        'new_item_name' => esc_html__('New Event Type Name','jw-event-schedule'),
-                        'menu_name'     => esc_html__('Event Type','jw-event-schedule'),
+                        'name'          => esc_html__('Event Types', 'jw-event-schedule'),
+                        'singular_name' => esc_html__('Event Type', 'jw-event-schedule'),
+                        'edit_item'     => esc_html__('Edit Event Type', 'jw-event-schedule'),
+                        'update_item'   => esc_html__('Update Event Type', 'jw-event-schedule'),
+                        'add_new_item'  => esc_html__('Add New Event Type', 'jw-event-schedule'),
+                        'new_item_name' => esc_html__('New Event Type Name', 'jw-event-schedule'),
+                        'menu_name'     => esc_html__('Event Type', 'jw-event-schedule'),
                     ),
                     'hierarchical' => true,
                     'rewrite' => array(
@@ -143,7 +143,14 @@ class PostType
                         'single' => 'true',
 
                         // 6. REST API Integration
-                        'show_in_rest' => true,
+                        'show_in_rest' => [
+                            'schema' => [
+                                'type'  => 'array',
+                                'items' => [
+                                    'type' => 'integer',
+                                ],
+                            ],
+                        ],
                         'single' => true,
 
                         // 8. Security Best Practices

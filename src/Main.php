@@ -2,10 +2,6 @@
 
 namespace JWES;
 
-use JWES\PostType;
-use JWES\Template;
-use JWES\Notifications;
-
 class Main
 {
     public static function init()

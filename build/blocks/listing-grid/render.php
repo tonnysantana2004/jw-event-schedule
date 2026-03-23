@@ -3,11 +3,13 @@
 use \JWES\PostType;
 
 $args = array(
-    'post_type'      => 'event',
-    'posts_per_page' => 4, 
-    'post_status'    => 'publish',
+	'post_type'      => 'event',
+	'posts_per_page' => 4,
+	'post_status'    => 'publish',
+	'fields' => 'ids'
 );
 
+// Optimized query only with ids
 $event_query = new WP_Query($args);
 
 ?>
