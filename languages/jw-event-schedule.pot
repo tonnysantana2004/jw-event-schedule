@@ -1,0 +1,197 @@
+# Copyright (C) 2026 Tonny Santana
+# This file is distributed under the same license as the JW Event Schedule plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: JW Event Schedule 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jw-event-schedule\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-23T14:14:28+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: jw-event-schedule\n"
+
+#. Plugin Name of the plugin
+#: jw-event-schedule.php
+msgid "JW Event Schedule"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: jw-event-schedule.php
+msgid "https://portfolio.tonnysantana.com"
+msgstr ""
+
+#. Description of the plugin
+#: jw-event-schedule.php
+msgid "A plugin for create, manage and list schedules in WordPress."
+msgstr ""
+
+#. Author of the plugin
+#: jw-event-schedule.php
+msgid "Tonny Santana"
+msgstr ""
+
+#: src/PostType.php:30
+#: src/PostType.php:32
+#: templates/header.php:37
+msgid "Events"
+msgstr ""
+
+#: src/PostType.php:31
+msgid "Event"
+msgstr ""
+
+#: src/PostType.php:33
+#: src/PostType.php:34
+msgid "Add New event"
+msgstr ""
+
+#: src/PostType.php:35
+msgid "New event"
+msgstr ""
+
+#: src/PostType.php:36
+msgid "Edit event"
+msgstr ""
+
+#: src/PostType.php:37
+msgid "View event"
+msgstr ""
+
+#: src/PostType.php:38
+msgid "All events"
+msgstr ""
+
+#: src/PostType.php:64
+msgid "Event Types"
+msgstr ""
+
+#: src/PostType.php:65
+#: src/PostType.php:70
+#: templates/archive-event.php:23
+msgid "Event Type"
+msgstr ""
+
+#: src/PostType.php:66
+msgid "Edit Event Type"
+msgstr ""
+
+#: src/PostType.php:67
+msgid "Update Event Type"
+msgstr ""
+
+#: src/PostType.php:68
+msgid "Add New Event Type"
+msgstr ""
+
+#: src/PostType.php:69
+msgid "New Event Type Name"
+msgstr ""
+
+#: src/PostType.php:100
+#: templates/single-event.php:39
+msgid "Event Date"
+msgstr ""
+
+#: src/PostType.php:121
+msgid "Event Location"
+msgstr ""
+
+#: src/PostType.php:141
+msgid "Attendance List"
+msgstr ""
+
+#: src/PostType.php:247
+#: src/PostType.php:274
+msgid "Attendance List Updated."
+msgstr ""
+
+#: src/PostType.php:293
+msgid "To decide"
+msgstr ""
+
+#: src/PostType.php:316
+msgid "Online."
+msgstr ""
+
+#: templates/archive-event.php:18
+msgid "Search by title"
+msgstr ""
+
+#: templates/archive-event.php:19
+msgid "Start typing..."
+msgstr ""
+
+#: templates/archive-event.php:26
+msgid "Select an option"
+msgstr ""
+
+#: templates/archive-event.php:71
+msgid "Date Range"
+msgstr ""
+
+#: templates/archive-event.php:72
+msgid "Select a date"
+msgstr ""
+
+#: templates/archive-event.php:76
+msgid "Reset"
+msgstr ""
+
+#: templates/archive-event.php:78
+msgid "Filter"
+msgstr ""
+
+#: templates/archive-event.php:132
+msgid "Nothing was found."
+msgstr ""
+
+#: templates/footer.php:3
+msgid "Jack Westin Events © 2026. All Rights Reserved."
+msgstr ""
+
+#: templates/header.php:30
+msgid "Event Scheduler"
+msgstr ""
+
+#: templates/header.php:36
+msgid "Home"
+msgstr ""
+
+#: templates/header.php:38
+#: templates/single-event.php:125
+msgid "About Us"
+msgstr ""
+
+#: templates/header.php:39
+msgid "Courses"
+msgstr ""
+
+#: templates/single-event.php:27
+#: templates/single-event.php:86
+msgid "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough."
+msgstr ""
+
+#: templates/single-event.php:61
+msgid "The Location"
+msgstr ""
+
+#: templates/single-event.php:101
+msgid "Confirm Attendance"
+msgstr ""
+
+#: templates/single-event.php:110
+msgid "Cancel Attendance"
+msgstr ""
+
+#: templates/single-event.php:117
+msgid "Login to confirm attendance"
+msgstr ""
+
+#: templates/single-event.php:126
+msgid "The team at Jack Westin is dedicated to a single goal: Giving you the highest quality learning resources, bar none. We understand that you can’t crush the MCAT® without the perfect blend of critical thinking and fundamental science knowledge. To this end, we are dedicated to providing you with only the cutting edge of comprehensive tools, courses, and practice materials. Our MCAT® science and CARS courses, taught by the world’s best and most engaging MCAT® instructors, are designed to do more than just teach you the MCAT®—our aim is to supercharge your studying and encourage lifelong learning."
+msgstr ""

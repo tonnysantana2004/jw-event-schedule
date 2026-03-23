@@ -1,0 +1,210 @@
+# Copyright (C) 2026 Tonny Santana
+# This file is for testing purposes only. Please replace it with a proper translation.
+msgid ""
+msgstr ""
+"Project-Id-Version: JW Event Schedule 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jw-event-"
+"schedule\n"
+"Last-Translator: <EMAIL@ADDRESS>\n"
+"Language-Team: Brazilian Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-23T14:14:28+00:00\n"
+"PO-Revision-Date: 2026-03-23 11:18-0300\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: jw-event-schedule\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Plugin Name of the plugin
+#: jw-event-schedule.php
+msgid "JW Event Schedule"
+msgstr "JW Event Schedule"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: jw-event-schedule.php
+msgid "https://portfolio.tonnysantana.com"
+msgstr "https://portfolio.tonnysantana.com"
+
+#. Description of the plugin
+#: jw-event-schedule.php
+msgid "A plugin for create, manage and list schedules in WordPress."
+msgstr "Um plugin para criar, gerenciar e listar agendas no WordPress."
+
+#. Author of the plugin
+#: jw-event-schedule.php
+msgid "Tonny Santana"
+msgstr "Tonny Santana"
+
+#: src/PostType.php:30 src/PostType.php:32 templates/header.php:37
+msgid "Events"
+msgstr "Eventos"
+
+#: src/PostType.php:31
+msgid "Event"
+msgstr "Evento"
+
+#: src/PostType.php:33 src/PostType.php:34
+msgid "Add New event"
+msgstr "Adicionar novo evento"
+
+#: src/PostType.php:35
+msgid "New event"
+msgstr "Novo evento"
+
+#: src/PostType.php:36
+msgid "Edit event"
+msgstr "Editar evento"
+
+#: src/PostType.php:37
+msgid "View event"
+msgstr "Visualizar evento"
+
+#: src/PostType.php:38
+msgid "All events"
+msgstr "Todos os eventos"
+
+#: src/PostType.php:64
+msgid "Event Types"
+msgstr "Tipos de evento"
+
+#: src/PostType.php:65 src/PostType.php:70 templates/archive-event.php:23
+msgid "Event Type"
+msgstr "Tipo de evento"
+
+#: src/PostType.php:66
+msgid "Edit Event Type"
+msgstr "Editar tipo de evento"
+
+#: src/PostType.php:67
+msgid "Update Event Type"
+msgstr "Atualizar tipo de evento"
+
+#: src/PostType.php:68
+msgid "Add New Event Type"
+msgstr "Adicionar novo tipo de evento"
+
+#: src/PostType.php:69
+msgid "New Event Type Name"
+msgstr "Nome do novo tipo de evento"
+
+#: src/PostType.php:100 templates/single-event.php:39
+msgid "Event Date"
+msgstr "Data do evento"
+
+#: src/PostType.php:121
+msgid "Event Location"
+msgstr "Local do evento"
+
+#: src/PostType.php:141
+msgid "Attendance List"
+msgstr "Lista de presença"
+
+#: src/PostType.php:247 src/PostType.php:274
+msgid "Attendance List Updated."
+msgstr "Lista de presença atualizada."
+
+#: src/PostType.php:293
+msgid "To decide"
+msgstr "A decidir"
+
+#: src/PostType.php:316
+msgid "Online."
+msgstr "Online."
+
+#: templates/archive-event.php:18
+msgid "Search by title"
+msgstr "Pesquisar por título"
+
+#: templates/archive-event.php:19
+msgid "Start typing..."
+msgstr "Comece a digitar..."
+
+#: templates/archive-event.php:26
+msgid "Select an option"
+msgstr "Selecione uma opção"
+
+#: templates/archive-event.php:71
+msgid "Date Range"
+msgstr "Intervalo de datas"
+
+#: templates/archive-event.php:72
+msgid "Select a date"
+msgstr "Selecione uma data"
+
+#: templates/archive-event.php:76
+msgid "Reset"
+msgstr "Redefinir"
+
+#: templates/archive-event.php:78
+msgid "Filter"
+msgstr "Filtrar"
+
+#: templates/archive-event.php:132
+msgid "Nothing was found."
+msgstr "Nada foi encontrado."
+
+#: templates/footer.php:3
+msgid "Jack Westin Events © 2026. All Rights Reserved."
+msgstr "Jack Westin Eventos © 2026. Todos os direitos reservados."
+
+#: templates/header.php:30
+msgid "Event Scheduler"
+msgstr "Agendador de Eventos"
+
+#: templates/header.php:36
+msgid "Home"
+msgstr "Início"
+
+#: templates/header.php:38 templates/single-event.php:125
+msgid "About Us"
+msgstr "Sobre nós"
+
+#: templates/header.php:39
+msgid "Courses"
+msgstr "Cursos"
+
+#: templates/single-event.php:27 templates/single-event.php:86
+msgid ""
+"We're now running a handful of different meetup series in spaces around "
+"Toronto, from Etobicoke to Scarborough."
+msgstr "Estamos realizando várias séries de encontros em diferentes locais de Toronto, de Etobicoke a Scarborough."
+
+#: templates/single-event.php:61
+msgid "The Location"
+msgstr "O local"
+
+#: templates/single-event.php:101
+msgid "Confirm Attendance"
+msgstr "Confirmar presença"
+
+#: templates/single-event.php:110
+msgid "Cancel Attendance"
+msgstr "Cancelar presença"
+
+#: templates/single-event.php:117
+msgid "Login to confirm attendance"
+msgstr "Faça login para confirmar presença"
+
+#: templates/single-event.php:126
+msgid ""
+"The team at Jack Westin is dedicated to a single goal: Giving you the "
+"highest quality learning resources, bar none. We understand that you can’t "
+"crush the MCAT® without the perfect blend of critical thinking and "
+"fundamental science knowledge. To this end, we are dedicated to providing "
+"you with only the cutting edge of comprehensive tools, courses, and practice "
+"materials. Our MCAT® science and CARS courses, taught by the world’s best "
+"and most engaging MCAT® instructors, are designed to do more than just teach "
+"you the MCAT®—our aim is to supercharge your studying and encourage lifelong "
+"learning."
+msgstr ""
+"A equipe da Jack Westin tem um único objetivo: oferecer recursos de aprendizado "
+"da mais alta qualidade, sem exceções. Sabemos que você não pode dominar o "
+"MCAT® sem a combinação perfeita de pensamento crítico e conhecimento científico "
+"fundamental. Para isso, nos dedicamos a fornecer apenas ferramentas, cursos e "
+"materiais de prática de ponta. Nossos cursos de Ciências e CARS para MCAT®, "
+"ministrados pelos melhores e mais engajadores instrutores do mundo, são projetados "
+"para mais do que ensinar o MCAT®—nosso objetivo é potencializar seus estudos "
+"e incentivar o aprendizado ao longo da vida."
