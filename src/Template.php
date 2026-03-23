@@ -47,5 +47,20 @@ class Template
                 }
             }
         );
+
+         add_action(
+            'search_template',
+            function () {
+                
+                $archiveTemplate = JWES_PLUGIN_DIR . '/templates/archive-event.php';
+
+                if (is_search() && 'event' === get_query_var('post_type')) {
+
+                    if (file_exists($archiveTemplate)) {
+                        return $archiveTemplate;
+                    }
+                }
+            }
+        );
     }
 }
