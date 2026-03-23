@@ -80,3 +80,10 @@
         }
     }
 }
+
+@media screen and (max-width:980px) {
+
+    .jwes-info-boxes {
+        grid-template-columns: 1fr;
+    }
+}
