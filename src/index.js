@@ -1,2 +1,0 @@
-
-import './gutenberg/sidebar.js';

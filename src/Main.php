@@ -21,5 +21,11 @@ class Main
 
         $notifications = new Notifications();
         $notifications->init();
+
+        // Gutenberg Blocks
+        add_action('init', function () {
+            register_block_type(JWES_PLUGIN_DIR . '/build/blocks/listing-grid');
+            register_block_type(JWES_PLUGIN_DIR . '/build/blocks/sidebar');
+        });
     }
 }

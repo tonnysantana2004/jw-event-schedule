@@ -6,24 +6,7 @@ class EnqueueScripts
 {
     public function init()
     {
-        $this->gutenberg();
         $this->frontend();
-    }
-
-    public function gutenberg()
-    {
-        add_action(
-            'enqueue_block_editor_assets',
-            function () {
-
-                $this->enqueue_script(
-                    'build/index.js',
-                    array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data')
-                );
-
-                $this->enqueue_style('assets/gutenberg/sidebar.css');
-            }
-        );
     }
 
     public function frontend()

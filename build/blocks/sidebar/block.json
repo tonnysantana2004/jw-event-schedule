@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "jw-event-schedule/sidebar",
+  "version": "0.1.0",
+  "title": "SideBar",
+  "category": "widgets",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "sidebar",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.scss"
+}

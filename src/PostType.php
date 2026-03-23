@@ -313,6 +313,6 @@ class PostType
     public static function get_the_event_location_formated($post_id): string
     {
         $location = get_post_meta($post_id, 'event_location', true);
-        return $location ? esc_html($location) : esc_html__('Online.', 'jw-event-schedule');
+        return $location ? esc_html($location) : esc_html__('Online', 'jw-event-schedule');
     }
 }

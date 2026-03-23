@@ -81,6 +81,10 @@ p:only-of-type {
     font-size: 0.9rem;
 }
 
+.jwes-text-4 {
+    font-size: 0.8rem;
+}
+
 .jwes-line-limit-1 {
     display: -webkit-box;
     line-clamp: 1;
