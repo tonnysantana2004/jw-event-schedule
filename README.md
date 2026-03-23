@@ -45,6 +45,8 @@ This README explains installation, basic usage, available features and REST exam
 - Admin improvements:
   - Event list columns shows the "Event Date" and "Event Location" meta values
   - Archive filtering by a `date_range`
+- Internalization Ready:
+  - The plugin's main texts are ready for future translations. For now, we have translations for Portuguese.
 
 ---
 
