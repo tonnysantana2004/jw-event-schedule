@@ -4,322 +4,327 @@ namespace JWES;
 
 use DateTime;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 // 1. Custom Post Type and Taxonomies
-class PostType
-{
-
-    public function init()
-    {
-        $this->create_the_post_type();
-        $this->create_the_taxonomy();
-        $this->create_the_custom_fields();
-        $this->create_listing_columns();
-        $this->create_custom_filtering_rules();
-        $this->create_custom_api_endpoint();
-    }
-
-    public function create_the_post_type()
-    {
-        add_action(
-            'init',
-            function () {
-                $args = array(
-                    'labels' => array(
-                        'name'          => esc_html__('Events', 'jw-event-schedule'),
-                        'singular_name' => esc_html__('Event', 'jw-event-schedule'),
-                        'menu_name'     => esc_html__('Events', 'jw-event-schedule'),
-                        'add_new'       => esc_html__('Add New event', 'jw-event-schedule'),
-                        'add_new_item'  => esc_html__('Add New event', 'jw-event-schedule'),
-                        'new_item'      => esc_html__('New event', 'jw-event-schedule'),
-                        'edit_item'     => esc_html__('Edit event', 'jw-event-schedule'),
-                        'view_item'     => esc_html__('View event', 'jw-event-schedule'),
-                        'all_items'     => esc_html__('All events', 'jw-event-schedule'),
-                    ),
-                    'public' => true,
-                    'has_archive' => true,
-                    'rewrite' => [
-                        'slug' => 'events'
-                    ],
-
-                    // 6. REST API Integration
-                    'show_in_rest' => true,
-                    'rest_base' => 'events',
-                    'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'),
-                );
-
-                register_post_type('event', $args);
-            }
-        );
-    }
-
-    public function create_the_taxonomy()
-    {
-        add_action(
-            'init',
-            function () {
-                $args = array(
-                    'labels'       => array(
-                        'name'          => esc_html__('Event Types', 'jw-event-schedule'),
-                        'singular_name' => esc_html__('Event Type', 'jw-event-schedule'),
-                        'edit_item'     => esc_html__('Edit Event Type', 'jw-event-schedule'),
-                        'update_item'   => esc_html__('Update Event Type', 'jw-event-schedule'),
-                        'add_new_item'  => esc_html__('Add New Event Type', 'jw-event-schedule'),
-                        'new_item_name' => esc_html__('New Event Type Name', 'jw-event-schedule'),
-                        'menu_name'     => esc_html__('Event Type', 'jw-event-schedule'),
-                    ),
-                    'hierarchical' => true,
-                    'rewrite' => array(
-                        'slug' => 'event-type',
-                    ),
-
-                    // 6. REST API Integration
-                    'show_in_rest'           => true,
-                );
-
-                register_taxonomy('event_type', 'event', $args);
-            }
-        );
-    }
-
-    // 2. Admin Interface Enhancements:
-    public function create_the_custom_fields()
-    {
-
-        add_action(
-            'rest_api_init',
-            function () {
+class PostType {
 
 
-                register_meta(
-                    'post',
-                    'event_date',
-                    array(
-                        'object_subtype' => 'event',
-                        'label' => esc_html__('Event Date', 'jw-event-schedule'),
-                        'type' => 'string',
+	public function init() {
+		$this->create_the_post_type();
+		$this->create_the_taxonomy();
+		$this->create_the_custom_fields();
+		$this->create_listing_columns();
+		$this->create_custom_filtering_rules();
+		$this->create_custom_api_endpoint();
+	}
 
-                        // 6. REST API Integration
-                        'show_in_rest' => true,
-                        'single' => true,
+	public function create_the_post_type() {
+		add_action(
+			'init',
+			function () {
+				$args = array(
+					'labels'       => array(
+						'name'          => esc_html__( 'Events', 'jw-event-schedule' ),
+						'singular_name' => esc_html__( 'Event', 'jw-event-schedule' ),
+						'menu_name'     => esc_html__( 'Events', 'jw-event-schedule' ),
+						'add_new'       => esc_html__( 'Add New event', 'jw-event-schedule' ),
+						'add_new_item'  => esc_html__( 'Add New event', 'jw-event-schedule' ),
+						'new_item'      => esc_html__( 'New event', 'jw-event-schedule' ),
+						'edit_item'     => esc_html__( 'Edit event', 'jw-event-schedule' ),
+						'view_item'     => esc_html__( 'View event', 'jw-event-schedule' ),
+						'all_items'     => esc_html__( 'All events', 'jw-event-schedule' ),
+					),
+					'public'       => true,
+					'has_archive'  => true,
+					'rewrite'      => array(
+						'slug' => 'events',
+					),
 
-                        // 8. Security Best Practices
-                        // There is no default sanatizer for datetime
-                        'sanitize_callback' => 'sanitize_text_field',
-                        'auth_callback' => function () {
-                            return current_user_can('edit_posts');
-                        }
-                    )
-                );
+					// 6. REST API Integration
+					'show_in_rest' => true,
+					'rest_base'    => 'events',
+					'supports'     => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields' ),
+				);
 
-                register_meta(
-                    'post',
-                    'event_location',
-                    array(
-                        'object_subtype' => 'event',
-                        'label' => esc_html__('Event Location', 'jw-event-schedule'),
-                        'type' => 'string',
+				register_post_type( 'event', $args );
+			}
+		);
+	}
 
-                        // 6. REST API Integration
-                        'show_in_rest' => true,
-                        'single' => true,
+	public function create_the_taxonomy() {
+		add_action(
+			'init',
+			function () {
+				$args = array(
+					'labels'       => array(
+						'name'          => esc_html__( 'Event Types', 'jw-event-schedule' ),
+						'singular_name' => esc_html__( 'Event Type', 'jw-event-schedule' ),
+						'edit_item'     => esc_html__( 'Edit Event Type', 'jw-event-schedule' ),
+						'update_item'   => esc_html__( 'Update Event Type', 'jw-event-schedule' ),
+						'add_new_item'  => esc_html__( 'Add New Event Type', 'jw-event-schedule' ),
+						'new_item_name' => esc_html__( 'New Event Type Name', 'jw-event-schedule' ),
+						'menu_name'     => esc_html__( 'Event Type', 'jw-event-schedule' ),
+					),
+					'hierarchical' => true,
+					'rewrite'      => array(
+						'slug' => 'event-type',
+					),
 
-                        // 8. Security Best Practices
-                        'sanitize_callback' => 'sanitize_text_field',
-                        'auth_callback' => function () {
-                            return current_user_can('edit_posts');
-                        }
-                    )
-                );
+					// 6. REST API Integration
+					'show_in_rest' => true,
+				);
 
-                register_meta(
-                    'post',
-                    'attendance_list',
-                    array(
-                        'object_subtype' => 'event',
-                        'label' => esc_html__('Attendance List', 'jw-event-schedule'),
-                        'type' => 'array',
-                        'single' => 'true',
+				register_taxonomy( 'event_type', 'event', $args );
+			}
+		);
+	}
 
-                        // 6. REST API Integration
-                        'show_in_rest' => [
-                            'schema' => [
-                                'type'  => 'array',
-                                'items' => [
-                                    'type' => 'integer',
-                                ],
-                            ],
-                        ],
-                        'single' => true,
+	// 2. Admin Interface Enhancements:
+	public function create_the_custom_fields() {
 
-                        // 8. Security Best Practices
-                        'sanitize_callback' => 'sanitize_text_field',
-                        'auth_callback' => function () {
-                            return current_user_can('edit_posts');
-                        }
-                    )
-                );
-            }
-        );
-    }
+		add_action(
+			'rest_api_init',
+			function () {
 
-    public function create_listing_columns()
-    {
-        add_filter(
-            'manage_event_posts_columns',
-            function ($columns) {
+				register_meta(
+					'post',
+					'event_date',
+					array(
+						'object_subtype'    => 'event',
+						'label'             => esc_html__( 'Event Date', 'jw-event-schedule' ),
+						'type'              => 'string',
 
-                $new_columns = array(
-                    'title'          => $columns['title'],
-                    'event_date'     => 'Event Date',
-                    'event_location' => 'Event Location',
-                    'date'           => $columns['date'],
-                );
+						// 6. REST API Integration
+						'show_in_rest'      => true,
+						'single'            => true,
 
-                return $new_columns;
-            }
-        );
+						// 8. Security Best Practices
+						// There is no default sanatizer for datetime
+						'sanitize_callback' => 'sanitize_text_field',
+						'auth_callback'     => function () {
+							return current_user_can( 'edit_posts' );
+						},
+					)
+				);
 
-        add_action(
-            'manage_event_posts_custom_column',
-            function ($column, $post_id) {
+				register_meta(
+					'post',
+					'event_location',
+					array(
+						'object_subtype'    => 'event',
+						'label'             => esc_html__( 'Event Location', 'jw-event-schedule' ),
+						'type'              => 'string',
 
-                if ('event_date' === $column) {
-                    echo PostType::get_the_event_date_formated($post_id);
-                }
+						// 6. REST API Integration
+						'show_in_rest'      => true,
+						'single'            => true,
 
-                if ('event_location' === $column) {
-                    echo PostType::get_the_event_location_formated($post_id);
-                }
-            },
-            10,
-            2
-        );
-    }
+						// 8. Security Best Practices
+						'sanitize_callback' => 'sanitize_text_field',
+						'auth_callback'     => function () {
+							return current_user_can( 'edit_posts' );
+						},
+					)
+				);
 
-    public function create_custom_filtering_rules()
-    {
-        add_action('pre_get_posts', function ($query) {
+				register_meta(
+					'post',
+					'attendance_list',
+					array(
+						'object_subtype'    => 'event',
+						'label'             => esc_html__( 'Attendance List', 'jw-event-schedule' ),
+						'type'              => 'array',
+						'single'            => 'true',
 
-            if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
+						// 6. REST API Integration
+						'show_in_rest'      => array(
+							'schema' => array(
+								'type'  => 'array',
+								'items' => array(
+									'type' => 'integer',
+								),
+							),
+						),
+						'single'            => true,
 
-                if (!isset($_GET['date_range'])) {
-                    return;
-                }
+						// 8. Security Best Practices
+						'sanitize_callback' => 'sanitize_text_field',
+						'auth_callback'     => function () {
+							return current_user_can( 'edit_posts' );
+						},
+					)
+				);
+			}
+		);
+	}
 
-                $dates = explode('to', $_GET['date_range']);
+	public function create_listing_columns() {
+		add_filter(
+			'manage_event_posts_columns',
+			function ( $columns ) {
 
-                // 8. Security Best Practices
-                $date1 = sanitize_text_field(trim($dates[0]));
-                $date2 = sanitize_text_field(trim($dates[1]));
+				$new_columns = array(
+					'title'          => $columns['title'],
+					'event_date'     => 'Event Date',
+					'event_location' => 'Event Location',
+					'date'           => $columns['date'],
+				);
 
-                $start = (new DateTime($date1 ?? '1980-1-1'))->setTime(0, 0)->format('U');
-                $end   = (new DateTime($date2 ?? '2030-1-1'))->setTime(23, 59, 59)->format('U');
+				return $new_columns;
+			}
+		);
 
-                $meta_query = $query->get('meta_query') ?: [];
+		add_action(
+			'manage_event_posts_custom_column',
+			function ( $column, $post_id ) {
 
-                $meta_query[] = [
-                    'key'     => 'event_date',
-                    'value'   => [$start, $end],
-                    'compare' => 'BETWEEN',
-                    'type'    => 'NUMERIC'
-                ];
+				if ( 'event_date' === $column ) {
+					echo PostType::get_event_date( $post_id );
+				}
 
-                $query->set('meta_query', $meta_query);
-            }
-        });
-    }
+				if ( 'event_location' === $column ) {
+					echo PostType::get_event_location( $post_id );
+				}
+			},
+			10,
+			2
+		);
+	}
 
-    public function create_custom_api_endpoint()
-    {
+	public function create_custom_filtering_rules() {
+		add_action(
+			'pre_get_posts',
+			function ( $query ) {
 
-        add_action('rest_api_init', function () {
+				if ( is_post_type_archive( 'event' ) || is_tax( 'event_type' ) || is_search() && 'event' === get_query_var( 'post_type' ) ) {
+					if ( ! isset( $_GET['date_range'] ) ) {
+						return;
+					}
 
-            register_rest_route('jwes/v1', '/attendance', array(
-                'methods' => 'POST',
-                'callback' => function ($request) {
+					$dates = explode( 'to', $_GET['date_range'] );
 
-                    $user_id = intval(sanitize_text_field($request['user_id']));
-                    $post_id = intval(sanitize_text_field($request['post_id']));
+					// 8. Security Best Practices
+					$date1 = sanitize_text_field( trim( $dates[0] ) );
+					$date2 = sanitize_text_field( trim( $dates[1] ) );
 
-                    $current_attendance_list = get_post_meta($post_id, 'attendance_list', true) ?: [];
+					$start = ( new DateTime( $date1 ?? '1980-1-1' ) )->setTime( 0, 0 )->format( 'U' );
+					$end   = ( new DateTime( $date2 ?? '2030-1-1' ) )->setTime( 23, 59, 59 )->format( 'U' );
 
-                    if ($user_id && !in_array($user_id, $current_attendance_list)) {
-                        $current_attendance_list[] = $user_id;
-                        update_post_meta($post_id, 'attendance_list', $current_attendance_list);
-                    }
+					$meta_query = $query->get( 'meta_query' ) ?: array();
 
-                    $response_data = array(
-                        'message' => esc_html__('Attendance List Updated.', 'jw-event-schedule'),
-                        'attendance' => $current_attendance_list,
-                        'timestamp' => current_time('mysql'),
-                    );
+					$meta_query[] = array(
+						'key'     => 'event_date',
+						'value'   => array( $start, $end ),
+						'compare' => 'BETWEEN',
+						'type'    => 'NUMERIC',
+					);
 
-                    return rest_ensure_response($response_data);
-                },
-                'permission_callback' =>  function () {
-                    return is_user_logged_in();
-                },
-            ));
+					$query->set( 'meta_query', $meta_query );
+				}
+			}
+		);
+	}
 
-            register_rest_route('jwes/v1', '/attendance', array(
-                'methods' => 'DELETE',
-                'callback' => function ($request) {
+	public function create_custom_api_endpoint() {
 
-                    $user_id = intval(sanitize_text_field($request['user_id']));
-                    $post_id = intval(sanitize_text_field($request['post_id']));
+		add_action(
+			'rest_api_init',
+			function () {
 
-                    $current_attendance_list = get_post_meta($post_id, 'attendance_list', true) ?: [];
+				register_rest_route(
+					'jwes/v1',
+					'/attendance',
+					array(
+						'methods'             => 'POST',
+						'callback'            => function ( $request ) {
 
-                    if ($user_id && in_array($user_id, $current_attendance_list)) {
-                        $current_attendance_list = array_values(array_diff($current_attendance_list, [$user_id]));
-                        update_post_meta($post_id, 'attendance_list', $current_attendance_list);
-                    }
+							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
+							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
 
-                    $response_data = array(
-                        'message' => esc_html__('Attendance List Updated.', 'jw-event-schedule'),
-                        'attendance' => $current_attendance_list,
-                        'timestamp' => current_time('mysql'),
-                    );
+							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true ) ?: array();
 
-                    return rest_ensure_response($response_data);
-                },
-                'permission_callback' =>  function () {
-                    return is_user_logged_in();
-                },
-            ));
-        });
-    }
+							if ( $user_id && ! in_array( $user_id, $current_attendance_list ) ) {
+								$current_attendance_list[] = $user_id;
+								update_post_meta( $post_id, 'attendance_list', $current_attendance_list );
+							}
 
-    public static function get_the_event_date_formated($post_id, $include_date = true, $include_hour = true): string
-    {
+							$response_data = array(
+								'message'    => esc_html__( 'Attendance List Updated.', 'jw-event-schedule' ),
+								'attendance' => $current_attendance_list,
+								'timestamp'  => current_time( 'mysql' ),
+							);
 
-        $event_date = get_post_meta($post_id, 'event_date', true);
+							return rest_ensure_response( $response_data );
+						},
+						'permission_callback' => function () {
+							return is_user_logged_in();
+						},
+					)
+				);
 
-        if (empty($event_date)) return esc_html__('To decide', 'jw-event-schedule');
+				register_rest_route(
+					'jwes/v1',
+					'/attendance',
+					array(
+						'methods'             => 'DELETE',
+						'callback'            => function ( $request ) {
 
-        $timestamp_format = "";
+							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
+							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
 
-        if ($include_date) {
-            $timestamp_format .= get_option('date_format');
-        }
+							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true ) ?: array();
 
-        if ($include_date && $include_hour) {
-            $timestamp_format .= ' | ';
-        }
+							if ( $user_id && in_array( $user_id, $current_attendance_list ) ) {
+								$current_attendance_list = array_values( array_diff( $current_attendance_list, array( $user_id ) ) );
+								update_post_meta( $post_id, 'attendance_list', $current_attendance_list );
+							}
 
-        if ($include_hour) {
-            $timestamp_format .= get_option('time_format');
-        }
+							$response_data = array(
+								'message'    => esc_html__( 'Attendance List Updated.', 'jw-event-schedule' ),
+								'attendance' => $current_attendance_list,
+								'timestamp'  => current_time( 'mysql' ),
+							);
 
-        $date = wp_date($timestamp_format, $event_date);
-        return esc_html($date);
-    }
+							return rest_ensure_response( $response_data );
+						},
+						'permission_callback' => function () {
+							return is_user_logged_in();
+						},
+					)
+				);
+			}
+		);
+	}
 
-    public static function get_the_event_location_formated($post_id): string
-    {
-        $location = get_post_meta($post_id, 'event_location', true);
-        return $location ? esc_html($location) : esc_html__('Online', 'jw-event-schedule');
-    }
+	public static function get_event_date( $post_id, $include_date = true, $include_hour = true ): string {
+
+		$event_date = get_post_meta( $post_id, 'event_date', true );
+
+		if ( empty( $event_date ) ) {
+			return esc_html__( 'To decide', 'jw-event-schedule' );
+		}
+
+		$timestamp_format = '';
+
+		if ( $include_date ) {
+			$timestamp_format .= get_option( 'date_format' );
+		}
+
+		if ( $include_date && $include_hour ) {
+			$timestamp_format .= ' | ';
+		}
+
+		if ( $include_hour ) {
+			$timestamp_format .= get_option( 'time_format' );
+		}
+
+		$date = wp_date( $timestamp_format, $event_date );
+		return esc_html( $date );
+	}
+
+	public static function get_event_location( $post_id ): string {
+		$location = get_post_meta( $post_id, 'event_location', true );
+		return $location ? esc_html( $location ) : esc_html__( 'Online', 'jw-event-schedule' );
+	}
 }

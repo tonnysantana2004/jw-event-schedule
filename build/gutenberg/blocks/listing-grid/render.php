@@ -47,10 +47,10 @@ $event_query = new WP_Query($args);
 
 			<div class="jwes-info-box-description jwes-text jwes-text-4">
 				<span>
-					<?= PostType::get_the_event_date_formated(get_the_ID(), true, false); ?>
+					<?= PostType::get_event_date(get_the_ID(), true, false); ?>
 				</span>
 				<span>
-					<?= PostType::get_the_event_location_formated(get_the_ID()); ?>
+					<?= PostType::get_event_location(get_the_ID()); ?>
 				</span>
 			</div>
 
