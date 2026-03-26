@@ -1,6 +1,6 @@
 <?php
 /**
- * Single Event Template
+ * Event Single Template
  *
  * @package JW Event Schedule
  */

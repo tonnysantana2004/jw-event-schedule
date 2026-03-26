@@ -1,4 +1,9 @@
 <?php
+/**
+ * Event Archive Template
+ *
+ * @package JW Event Schedule
+ */
 
 use JWES\PostType;
 
@@ -14,9 +19,13 @@ wp_head();
 
 		<!-- 4. Search and Filtering Functionality -->
 		<form method="get" class="jwes-form">
+			
 			<div class="jwes-field-control jwes-text jwes-text-3">
+
 				<label for="search-by-title"><?php echo esc_html__( 'Search by title', 'jw-event-schedule' ); ?></label>
+
 				<input type="text" id="search-by-title" name="s" placeholder="<?php echo esc_html__( 'Start typing...', 'jw-event-schedule' ); ?>" value="<?php echo isset( $_GET['s'] ) ? $_GET['s'] : ''; ?>">
+
 			</div>
 
 			<div class="jwes-field-control jwes-text jwes-text-3">
