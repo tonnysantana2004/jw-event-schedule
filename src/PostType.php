@@ -233,19 +233,26 @@ class PostType {
 						'search_action'
 					)
 					) {
-						$date_range = sanitize_text_field( wp_unslash( $_GET['search_nonce'] ) );
+						$date_range = sanitize_text_field( wp_unslash( $_GET['date_range'] ) );
 					}
 
 					$dates = explode( 'to', $date_range );
 
-					// 8. Security Best Practices
-					$date1 = sanitize_text_field( trim( $dates[0] ) );
-					$date2 = sanitize_text_field( trim( $dates[1] ) );
+					if ( ! isset( $dates[0] ) || ! isset( $dates[1] ) ) {
+						return;
+					}
+
+					$date1 = sanitize_text_field( $dates[0] );
+					$date2 = sanitize_text_field( $dates[1] );
 
 					$start = ( new DateTime( $date1 ?? '1980-1-1' ) )->setTime( 0, 0 )->format( 'U' );
 					$end   = ( new DateTime( $date2 ?? '2030-1-1' ) )->setTime( 23, 59, 59 )->format( 'U' );
 
-					$meta_query = $query->get( 'meta_query' ) ?? array();
+					$meta_query = $query->get( 'meta_query' );
+
+					if ( ! is_array( $meta_query ) ) {
+						$meta_query = array();
+					}
 
 					$meta_query[] = array(
 						'key'     => 'event_date',
