@@ -1,3 +1,5 @@
+import flatpickr from "flatpickr";
+
 document.addEventListener('DOMContentLoaded', () => {
 
     flatpickr("#date-range", {

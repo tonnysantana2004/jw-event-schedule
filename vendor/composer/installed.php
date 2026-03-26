@@ -3,7 +3,7 @@
         'name' => 'jwes/jw-event-schedule',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3b99aa51b53bcf9863fbf957cb906259e60f4fc5',
+        'reference' => 'f7634817f42a85da8a3b4a7dcf09d3d9db644aaa',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'jwes/jw-event-schedule' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3b99aa51b53bcf9863fbf957cb906259e60f4fc5',
+            'reference' => 'f7634817f42a85da8a3b4a7dcf09d3d9db644aaa',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

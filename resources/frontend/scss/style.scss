@@ -1,3 +1,5 @@
+@import "flatpickr/dist/flatpickr.min.css";
+
 * {
     box-sizing: border-box;
 }
@@ -188,7 +190,7 @@ header {
     align-items: center;
     text-decoration: none;
     border-radius: 100px;
-    transition: all.2s;
+    transition: all .2s;
     border: solid 1px;
     font-weight: 600;
     font-size: 1rem;
@@ -290,11 +292,11 @@ header {
         justify-content: center;
     }
 
-    & .jwes-field-control:nth-child(3) {
+    .jwes-field-control:nth-child(3) {
         grid-column: span 2;
     }
 
-    & a>.jwes-btn {
+    a >.jwes-btn {
         width: 100%;
     }
 
@@ -306,7 +308,7 @@ header {
         }
     }
 
-    & .jwes-info-box-description {
+    .jwes-info-box-description {
         flex-wrap: wrap;
     }
 }

@@ -20,6 +20,7 @@ wp_head();
 			</div>
 
 			<div class="jwes-field-control jwes-text jwes-text-3">
+				
 				<label for="event-type"><?= esc_html__('Event Type', 'jw-event-schedule')?></label>
 				<select name="event_type" id="event-type">
 
@@ -94,7 +95,7 @@ wp_head();
 						the_post_thumbnail();
 					} else { ?>
 
-						<img src="<?= plugins_url('assets/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?> ?>">
+						<img src="<?= plugins_url('build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?> ?>">
 
 					<?php }; ?>
 

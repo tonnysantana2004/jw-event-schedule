@@ -1,0 +1,1 @@
+(()=>{"use strict";const i=window.wp.blocks,n=window.wp.i18n,e=window.wp.blockEditor,t=window.ReactJSXRuntime,o=JSON.parse('{"UU":"jw-event-schedule/listing-grid"}');(0,i.registerBlockType)(o.UU,{edit:function(){return(0,t.jsx)("p",{...(0,e.useBlockProps)(),children:(0,n.__)("Listing Grid – Open on the Frontend!","listing-grid")})}})})();

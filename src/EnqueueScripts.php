@@ -2,60 +2,74 @@
 
 namespace JWES;
 
-class EnqueueScripts
-{
-    public function init()
-    {
-        $this->frontend();
-    }
+class EnqueueScripts {
 
-    public function frontend()
-    {
-        add_action(
-            'wp_enqueue_scripts',
-            function () {
+	public function init() {
+		$this->frontend();
 
-                if (!is_admin()) {
-                    $this->enqueue_style('assets/frontend/style.css');
-                }
+		$this->enqueue_style( 'build/gutenberg/editor/style.css' );
+		$this->enqueue_script(
+			'build/gutenberg/editor/index.js',
+			array(
+				'wp-blocks',      // Para registerBlockType e blocks
+				'wp-i18n',        // Traduções
+				'wp-element',     // React Element
+				'wp-components',  // UI Components
+				'wp-editor',      // Editor utils
+				'wp-plugins',     // Para registerPlugin
+				'wp-data',        // Select/Dispatch
+				'wp-edit-post',    // Sidebar, etc.
+			),
+		);
+		// Gutenberg Blocks
+		add_action(
+			'init',
+			function () {
+				register_block_type( JWES_PLUGIN_DIR . '/build/gutenberg/blocks/listing-grid' );
+			}
+		);
+	}
 
-                if (is_singular('event')) {
-                    $this->enqueue_style('assets/frontend/single-event.css');
-                    $this->enqueue_script('assets/frontend/single-event.js', ['wp-api-fetch']);
-                }
+	public function frontend() {
+		add_action(
+			'wp_enqueue_scripts',
+			function () {
 
-                if (is_post_type_archive('event') || is_tax('event_type') || is_search() && 'event' === get_query_var('post_type')) {
+				if ( ! is_admin() ) {
+					$this->enqueue_style( 'build/frontend/css/style.css' );
+				}
 
-                    $this->enqueue_style('assets/frontend/archive-event.css');
-                    $this->enqueue_script('assets/frontend/archive-event.js');
+				if ( is_singular( 'event' ) ) {
+					$this->enqueue_style( 'build/frontend/css/single-event.css' );
+					$this->enqueue_script( 'build/frontend/js/single-event.js', array( 'wp-api-fetch' ) );
+				}
 
-                    $this->enqueue_style('assets/flatpickr/style.css');
-                    $this->enqueue_script('assets/flatpickr/script.js');
-                }
-            }
-        );
-    }
+				if ( is_post_type_archive( 'event' ) || is_tax( 'event_type' ) || is_search() && 'event' === get_query_var( 'post_type' ) ) {
+					$this->enqueue_style( 'build/frontend/css/archive-event.css' );
+					$this->enqueue_script( 'build/frontend/js/archive-event.js' );
+				}
+			}
+		);
+	}
 
-    public function enqueue_style($related_file_path, $handle = false)
-    {;
-        wp_enqueue_style(
-            $handle ? '' : str_replace(['/', '.'], '-', $related_file_path),
-            plugins_url($related_file_path, JWES_PLUGIN_FILE),
-            array(),
-            filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . $related_file_path),
-            false
-        );
-    }
+	public function enqueue_style( $related_file_path, $handle = false ) {
+		wp_enqueue_style(
+			$handle ? '' : str_replace( array( '/', '.' ), '-', $related_file_path ),
+			plugins_url( $related_file_path, JWES_PLUGIN_FILE ),
+			array(),
+			filemtime( plugin_dir_path( JWES_PLUGIN_FILE ) . $related_file_path ),
+			false
+		);
+	}
 
 
-    public function enqueue_script($related_file_path, $dependencies = '', $handle = false)
-    {
-        wp_enqueue_script(
-            $handle ? '' : str_replace(['/', '.'], '-', $related_file_path),
-            plugins_url($related_file_path, JWES_PLUGIN_FILE),
-            $dependencies,
-            filemtime(plugin_dir_path(JWES_PLUGIN_FILE) . $related_file_path),
-            true
-        );
-    }
+	public function enqueue_script( $related_file_path, $dependencies = '', $handle = false ) {
+		wp_enqueue_script(
+			$handle ? '' : str_replace( array( '/', '.' ), '-', $related_file_path ),
+			plugins_url( $related_file_path, JWES_PLUGIN_FILE ),
+			$dependencies,
+			filemtime( plugin_dir_path( JWES_PLUGIN_FILE ) . $related_file_path ),
+			true
+		);
+	}
 }
