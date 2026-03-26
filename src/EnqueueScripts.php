@@ -1,4 +1,9 @@
 <?php
+/**
+ * Enqueue Script Class
+ *
+ * @package JW Event Schedule
+ */
 
 namespace JWES;
 
@@ -11,14 +16,14 @@ class EnqueueScripts {
 		$this->enqueue_script(
 			'build/gutenberg/editor/index.js',
 			array(
-				'wp-blocks',      // Para registerBlockType e blocks
-				'wp-i18n',        // Traduções
-				'wp-element',     // React Element
-				'wp-components',  // UI Components
-				'wp-editor',      // Editor utils
-				'wp-plugins',     // Para registerPlugin
-				'wp-data',        // Select/Dispatch
-				'wp-edit-post',    // Sidebar, etc.
+				'wp-blocks',
+				'wp-i18n',
+				'wp-element',
+				'wp-components',
+				'wp-editor',
+				'wp-plugins',
+				'wp-data',
+				'wp-edit-post',
 			),
 		);
 		// Gutenberg Blocks
