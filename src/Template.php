@@ -1,66 +1,76 @@
 <?php
+/**
+ * Template Class
+ *
+ * @package JW Event Schedule
+ */
 
 namespace JWES;
 
-class Template
-{
+/**
+ * Handle the template import functionalities.
+ */
+class Template {
 
-    public function init()
-    {
+	/**
+	 * Start the class functions.
+	 */
+	public function init() {
+		$this->single_template();
+		$this->archive_template();
+	}
 
-        $this->single_template();
-        $this->archive_template();
-    }
-    public function single_template()
-    {
+	/**
+	 * Load the single template.
+	 */
+	public function single_template() {
 
-        add_action(
-            'single_template',
-            function () {
+		add_action(
+			'single_template',
+			function () {
 
-                $singleTemplate = JWES_PLUGIN_DIR . '/templates/single-event.php';
+				$single_template = JWES_PLUGIN_DIR . '/templates/single-event.php';
 
-                if (is_singular('event')) {
+				if ( is_singular( 'event' ) ) {
+					if ( file_exists( $single_template ) ) {
+						return $single_template;
+					}
+				}
+			}
+		);
+	}
 
-                    if (file_exists($singleTemplate)) {
-                        return $singleTemplate;
-                    }
-                }
-            }
-        );
-    }
+	/**
+	 * Load the archive template.
+	 */
+	public function archive_template() {
 
-    public function archive_template()
-    {
+		add_action(
+			'archive_template',
+			function () {
 
-        add_action(
-            'archive_template',
-            function () {
-                
-                $archiveTemplate = JWES_PLUGIN_DIR . '/templates/archive-event.php';
+				$archive_template = JWES_PLUGIN_DIR . '/templates/archive-event.php';
 
-                if (is_post_type_archive('event') || is_tax('event_type')) {
+				if ( is_post_type_archive( 'event' ) || is_tax( 'event_type' ) ) {
+					if ( file_exists( $archive_template ) ) {
+						return $archive_template;
+					}
+				}
+			}
+		);
 
-                    if (file_exists($archiveTemplate)) {
-                        return $archiveTemplate;
-                    }
-                }
-            }
-        );
+		add_action(
+			'search_template',
+			function () {
 
-         add_action(
-            'search_template',
-            function () {
-                
-                $archiveTemplate = JWES_PLUGIN_DIR . '/templates/archive-event.php';
+				$archive_template = JWES_PLUGIN_DIR . '/templates/archive-event.php';
 
-                if (is_search() && 'event' === get_query_var('post_type')) {
-
-                    if (file_exists($archiveTemplate)) {
-                        return $archiveTemplate;
-                    }
-                }
-            }
-        );
-    }
+				if ( is_search() && 'event' === get_query_var( 'post_type' ) ) {
+					if ( file_exists( $archive_template ) ) {
+						return $archive_template;
+					}
+				}
+			}
+		);
+	}
 }
