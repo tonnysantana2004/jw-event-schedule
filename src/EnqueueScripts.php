@@ -53,7 +53,6 @@ class EnqueueScripts {
 			'init',
 			function () {
 				register_block_type( JWES_PLUGIN_DIR . '/build/gutenberg/blocks/listing-grid' );
-				
 				$this->enqueue_style( 'build/gutenberg/editor/style.css' );
 
 				$this->enqueue_script(
@@ -70,7 +69,6 @@ class EnqueueScripts {
 					)
 				);
 			}
-			
 		);
 	}
 

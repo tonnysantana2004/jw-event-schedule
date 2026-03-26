@@ -149,13 +149,13 @@ class PostType {
 					'post',
 					'attendance_list',
 					array(
-						'object_subtype'    => 'event',
-						'label'             => esc_html__( 'Attendance List', 'jw-event-schedule' ),
-						'type'              => 'array',
-						'single'            => 'true',
+						'object_subtype' => 'event',
+						'label'          => esc_html__( 'Attendance List', 'jw-event-schedule' ),
+						'type'           => 'array',
+						'single'         => 'true',
 
 						// 6. REST API Integration
-						'show_in_rest'      => array(
+						'show_in_rest'   => array(
 							'schema' => array(
 								'type'  => 'array',
 								'items' => array(
@@ -165,8 +165,7 @@ class PostType {
 						),
 
 						// 8. Security Best Practices
-						'sanitize_callback' => 'sanitize_text_field',
-						'auth_callback'     => function () {
+						'auth_callback'  => function () {
 							return current_user_can( 'edit_posts' );
 						},
 					)
@@ -286,7 +285,11 @@ class PostType {
 							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
 							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
 
-							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true ) ?? array();
+							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true );
+
+							if ( ! is_array( $current_attendance_list ) ) {
+								$current_attendance_list = array();
+							}
 
 							if ( $user_id && ! in_array( $user_id, $current_attendance_list, true ) ) {
 								$current_attendance_list[] = $user_id;
@@ -317,7 +320,11 @@ class PostType {
 							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
 							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
 
-							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true ) ?? array();
+							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true );
+
+							if ( ! is_array( $current_attendance_list ) ) {
+								$current_attendance_list = array();
+							}
 
 							if ( $user_id && in_array( $user_id, $current_attendance_list, true ) ) {
 								$current_attendance_list = array_values( array_diff( $current_attendance_list, array( $user_id ) ) );

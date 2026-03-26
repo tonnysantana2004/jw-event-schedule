@@ -108,10 +108,11 @@ require 'header.php';
 		</div>
 
 		<?php
+
 		if ( is_user_logged_in() ) :
 			$jwes_current_attendance_list = get_post_meta( get_the_ID(), 'attendance_list', true );
 
-			if ( ! isset( $jwes_current_attendance_list ) || empty( $jwes_current_attendance_list ) ) {
+			if ( ! isset( $jwes_current_attendance_list ) || ! is_array( $jwes_current_attendance_list ) ) {
 				$jwes_current_attendance_list = array();
 			}
 

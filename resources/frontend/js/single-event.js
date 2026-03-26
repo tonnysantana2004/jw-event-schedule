@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 post_id: formData.get('post_id')
             },
         }).then(() => {
-            // window.location.reload();
+            window.location.reload();
         });
 
     })
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 post_id: formData.get('post_id')
             },
         }).then(() => {
-            // window.location.reload();
+            window.location.reload();
         });
 
     })
