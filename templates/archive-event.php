@@ -28,6 +28,9 @@ wp_head();
 
 				<?php
 
+				$jwes_search_value = '';
+				$jwes_event_type   = '';
+				$jwes_date_range   = '';
 				if (
 				isset( $_GET['search_nonce'] ) &&
 				wp_verify_nonce(
