@@ -1,6 +1,12 @@
 # JW Event Schedule
 
-A WordPress plugin to manage events.
+A WordPress plugin to manage events with the following features:
+
+- Custom post type for events
+- Event types as taxonomy
+- Custom fields on Gutenberg Sidebar
+- Attendance system
+- E-mail notifications when events are created, updated or canceled.
 
 This README explains installation, basic usage, available features and REST examples so a non-technical user can get started quickly.
 
