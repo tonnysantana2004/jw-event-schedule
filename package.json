@@ -34,6 +34,7 @@
     "webpack-remove-empty-scripts": "^1.1.1"
   },
   "dependencies": {
-    "flatpickr": "^4.6.13"
+    "flatpickr": "^4.6.13",
+    "remove-files-webpack-plugin": "^1.5.0"
   }
 }

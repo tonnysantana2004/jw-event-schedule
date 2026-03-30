@@ -1,97 +1,118 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config");
-const path = require('path');
-const glob = require('glob');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const RemovePlugin = require('remove-files-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const { glob } = require('glob');
+const path = require('path');
 
-// Remove .asset.php outside the folder "blocks/"
-class RemoveUnwantedAssetFiles {
+const pluginsToRemove = [
+    'RtlCssPlugin'
+];
 
-    apply(compiler) {
-        compiler.hooks.emit.tapAsync('RemoveUnwantedAssetFiles', (compilation, callback) => {
-            Object.keys(compilation.assets).forEach((filename) => {
-                if (filename.endsWith('.asset.php') && !filename.includes('blocks/')) {
-                    delete compilation.assets[filename];
-                }
-            });
-            callback();
-        });
-    }
+async function getEntries() {
+
+    const files = await glob(
+        './resources/**/*',
+        {
+            ignore: ['**/blocks/**','**/_*.scss'],
+            nodir: true
+        })
+
+    let customEntries = {};
+
+    files.forEach(file => {
+        
+        // use only "/"
+        const normalized = file.split(path.sep).join('/');
+
+        // remove the base folder
+        const relative = normalized.replace(/^\.\/resources\//, '')
+        .replace('resources/', '')
+        // rename the scss folder to css
+        .replace('scss/','css/');
+
+        // remove file extension
+        const name = relative.replace(/\.(js|scss|png|webp|svg|jpg|php|json)$/, '');
+
+        customEntries[name] = './' + normalized;
+
+    });
+    console.log(customEntries)
+    return customEntries;
+
 }
 
-let blockEntries = typeof defaultConfig.entry === 'function'
-    ? defaultConfig.entry()
-    : defaultConfig.entry;
+module.exports = async () => {
 
-// Auto-discover all JS and SCSS inside resources/
-const customEntries = {};
+    const customEntries = await getEntries();
+    
+    return {
+        ...defaultConfig,
 
-const patterns = [
-    { pattern: './resources/**/*.scss', ext: '.scss' },
-    { pattern: './resources/**/*.css', ext: '.css' },
-    { pattern: './resources/**/*.webp', ext: '.webp' },
-    { pattern: './resources/**/*.js', ext: '.js' },
-]
+        entry: {
+            ...defaultConfig.entry(),
+            ...customEntries,
+        },
 
-patterns.forEach(({ pattern, ext }) => {
-    glob.sync(pattern, {
-        ignore: [
-            './resources/**/blocks/**',
-            '**/_*.scss',
-        ],
-    }).forEach((file) => {
-        let relative = path
-            .relative(path.resolve(__dirname, 'resources'), file)
-            .replace(/\\/g, '/')
-            .replace(ext, '');
-
-        relative = relative.replace("scss/", 'css/');
-
-        customEntries[relative] = path.resolve(__dirname, file);
-    });
-});
-
-module.exports = {
-
-    entry: {
-        ...blockEntries,
-        ...customEntries,
-    },
-
-    output: {
-        filename: () => '[name].js',
-        clean: true,
-    },
-
-    plugins: [
-        ...defaultConfig.plugins.filter(
-            (plugin) =>
-                plugin.constructor.name !== 'RtlCssPlugin' && // remove rtl support
-                plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
-        ),
-        new DependencyExtractionWebpackPlugin(),
-        new RemoveUnwantedAssetFiles(),
-        new RemoveEmptyScriptsPlugin({
-            stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
-        }),
-    ],
-
-    module: {
-        ...defaultConfig.module,
-        rules: [
-            ...defaultConfig.module.rules,
-            {
-                test: /\.(png|jpg|jpeg|gif|svg|webp)$/i,
-                type: 'asset/resource',
-                generator: {
-                    filename: (pathData) => {
-                        const relativePath = path
-                            .relative(path.resolve(__dirname, 'resources'), pathData.filename)
-                            .replace(/\\/g, '/');
-                        return relativePath;
+        optimization: {
+            ...defaultConfig.optimization,
+            splitChunks: {
+                ...defaultConfig.optimization.splitChunks,
+                cacheGroups: {
+                    ...defaultConfig.optimization.splitChunks.cacheGroups,
+                    style: {
+                        ...defaultConfig.optimization.splitChunks.cacheGroups.style,
+                        test: /[\\/]blocks[\\/].*[\\/]style(\.module)?\.(pc|sc|sa|c)ss$/, 
+                        // Just apply the changes if 
+                        // the file is inside a block folder
                     },
+                    default: false,
                 },
             },
-        ],
-    },
+        },
+
+        plugins: [
+            ...defaultConfig.plugins,
+            new RemoveEmptyScriptsPlugin(),
+
+            // Remove files asset.php
+            new RemovePlugin({
+                after: {
+                    allowRootAndOutside: true,
+                    test: [
+                        {
+                            folder: './build',
+                            method: (absoluteItemPath) => {
+                                return /\.asset\.php$/.test(absoluteItemPath) &&
+                                    !/[\\/]blocks[\\/]/.test(absoluteItemPath);
+                            },
+                            recursive: true,
+                        }
+                    ],
+                },
+            }),
+        ].filter((plugin) => !pluginsToRemove?.includes(plugin?.constructor?.name)), // remove unwanted plugins
+
+        output: {
+            ...defaultConfig.output,
+            filename: '[name].js',
+            clean: true
+        },
+
+        module: {
+            ...defaultConfig.module,
+            rules: [
+                ...defaultConfig.module.rules,
+                {   // remove cache string from images
+                    test: /\.(png|jpg|jpeg|webp|avif|gif|svg|woff2)$/i,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: (pathData) => {
+                            return pathData.filename
+                                .replace(/^resources[\\/]/, '');
+                        }
+                    }
+                }
+            ]
+        }
+    }
 };
