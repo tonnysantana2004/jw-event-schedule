@@ -15,135 +15,135 @@ require 'header.php';
 
 	<article>
 
-	<section class="jwes-container jwes-event-header">
+		<section class="jwes-container jwes-event-header">
 
-		<?php
+			<?php
 
-		// Post Thumbnail.
-		if ( get_the_post_thumbnail_url() ) {
-			$jwes_img_tag = get_the_post_thumbnail();
-		} else {
-			$jwes_post_thumbnail = plugins_url( 'build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE );
-			$jwes_img_tag        = "<img src='$jwes_post_thumbnail'>";
-		}
+			// Post Thumbnail.
+			if ( get_the_post_thumbnail_url() ) {
+				$jwes_img_tag = get_the_post_thumbnail();
+			} else {
+				$jwes_post_thumbnail = plugins_url( 'build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE );
+				$jwes_img_tag        = "<img src='$jwes_post_thumbnail'>";
+			}
 
-		echo wp_kses_post( $jwes_img_tag );
+			echo wp_kses_post( $jwes_img_tag );
 
-		?>
+			?>
 
-		<div class="jwes-event-intro">
+			<div class="jwes-event-intro">
 
-			<h1 class="jwes-title jwes-title-1"><?php the_title(); ?></h1>
-			<p class="jwes-text jwes-text-1">
-				<?php
+				<h1 class="jwes-title jwes-title-1"><?php the_title(); ?></h1>
+				<p class="jwes-text jwes-text-1">
+					<?php
 
-				$jwes_excerpt = get_the_excerpt();
+					$jwes_excerpt = get_the_excerpt();
 
-				$jwes_excerpt = $jwes_excerpt ? $jwes_excerpt : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
+					$jwes_excerpt = $jwes_excerpt ? $jwes_excerpt : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
 
-				echo wp_kses_post( $jwes_excerpt );
+					echo wp_kses_post( $jwes_excerpt );
 
-				?>
-			</p>
+					?>
+				</p>
 
-			<div class="jwes-info-boxes">
+				<div class="jwes-info-boxes">
 
-				<div class="jwes-info-box">
+					<div class="jwes-info-box">
 
-					<div class="jwes-info-box-header">
+						<div class="jwes-info-box-header">
 
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="jwes-info-box-icon">
-							<path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
-						</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="jwes-info-box-icon">
+								<path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+							</svg>
 
-						<h3 class="jwes-title jwes-title-3"><?php echo esc_html__( 'Event Date', 'jw-event-schedule' ); ?></h3>
+							<h3 class="jwes-title jwes-title-3"><?php echo esc_html__( 'Event Date', 'jw-event-schedule' ); ?></h3>
 
-					</div>
+						</div>
 
-					<div class="jwes-info-box-description jwes-text jwes-text-2">
-						<span>
-							<?php echo esc_html( PostType::get_event_date( get_the_ID(), true, false ) ); ?>
-						</span>
-						<span><?php echo esc_html( PostType::get_event_date( get_the_ID(), false, true ) ); ?></span>
-					</div>
-
-				</div>
-
-				<div class="jwes-info-box">
-
-					<div class="jwes-info-box-header">
-
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="jwes-info-box-icon">
-							<path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
-						</svg>
-
-
-						<h3 class="jwes-title jwes-title-3"><?php echo esc_html__( 'The Location', 'jw-event-schedule' ); ?></h3>
+						<div class="jwes-info-box-description jwes-text jwes-text-2">
+							<span>
+								<?php echo esc_html( PostType::get_event_date( get_the_ID(), true, false ) ); ?>
+							</span>
+							<span><?php echo esc_html( PostType::get_event_date( get_the_ID(), false, true ) ); ?></span>
+						</div>
 
 					</div>
 
-					<div class="jwes-info-box-description jwes-text jwes-text-2">
-						<span>
-							<?php echo esc_html( PostType::get_event_location( get_the_ID() ) ); ?>
-						</span>
+					<div class="jwes-info-box">
+
+						<div class="jwes-info-box-header">
+
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="jwes-info-box-icon">
+								<path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
+							</svg>
+
+
+							<h3 class="jwes-title jwes-title-3"><?php echo esc_html__( 'The Location', 'jw-event-schedule' ); ?></h3>
+
+						</div>
+
+						<div class="jwes-info-box-description jwes-text jwes-text-2">
+							<span>
+								<?php echo esc_html( PostType::get_event_location( get_the_ID() ) ); ?>
+							</span>
+						</div>
+
 					</div>
 
 				</div>
 
 			</div>
+		</section>
 
-		</div>
-	</section>
+		<hr>
 
-	<hr>
+		<section class="jwes-container jwes-text jwes-text-1">
+			<div class="jwes-content">
+				<?php
 
-	<section class="jwes-container jwes-text jwes-text-1">
-		<div class="jwes-content">
+				$jwes_content = get_the_content() ? get_the_content() : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
+
+				the_content();
+
+				?>
+
+			</div>
+
 			<?php
 
-			$jwes_content = get_the_content() ? get_the_content() : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
+			if ( is_user_logged_in() ) :
+				$jwes_current_attendance_list = get_post_meta( get_the_ID(), 'attendance_list', true );
 
-			the_content();
+				if ( ! isset( $jwes_current_attendance_list ) || ! is_array( $jwes_current_attendance_list ) ) {
+					$jwes_current_attendance_list = array();
+				}
 
-			?>
+				if ( ! in_array( get_current_user_id(), $jwes_current_attendance_list, true ) ) {
+					?>
 
-		</div>
+					<form action="/wp-json/jwes/v1/attendance"  id="attendance-form">
+						<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
+						<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
+						<button class="jwes-btn jwes-btn-primary" type="submit" style="width:fit-content" id="confirm-attendance"><?php echo esc_html__( 'Confirm Attendance', 'jw-event-schedule' ); ?></button>
+					</form>
 
-		<?php
-
-		if ( is_user_logged_in() ) :
-			$jwes_current_attendance_list = get_post_meta( get_the_ID(), 'attendance_list', true );
-
-			if ( ! isset( $jwes_current_attendance_list ) || ! is_array( $jwes_current_attendance_list ) ) {
-				$jwes_current_attendance_list = array();
-			}
-
-			if ( ! in_array( get_current_user_id(), $jwes_current_attendance_list, true ) ) {
-				?>
-
-				<form action="/wp-json/jwes/v1/attendance"  id="attendance-form">
-					<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
-					<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
-					<button class="jwes-btn jwes-btn-primary" type="submit" style="width:fit-content" id="confirm-attendance"><?php echo esc_html__( 'Confirm Attendance', 'jw-event-schedule' ); ?></button>
-				</form>
-
-				<?php
-			} else {
-				?>
-				<form action="/wp-json/jwes/v1/attendance" id="cancel-attendance-form">
-					<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
-					<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
-					<button class="jwes-btn jwes-btn-danger" type="submit" style="width:fit-content" id="cancel-attendance"><?php echo esc_html__( 'Cancel Attendance', 'jw-event-schedule' ); ?></button>
-				</form>
+					<?php
+				} else {
+					?>
+					<form action="/wp-json/jwes/v1/attendance" id="cancel-attendance-form">
+						<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
+						<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
+						<button class="jwes-btn jwes-btn-danger" type="submit" style="width:fit-content" id="cancel-attendance"><?php echo esc_html__( 'Cancel Attendance', 'jw-event-schedule' ); ?></button>
+					</form>
 
 
-			<?php } ?>
+				<?php } ?>
 
-		<?php else : ?>
-			<a class="jwes-btn jwes-btn-primary" href="/wp-login.php?redirect_to=/events/wordpress-convention/#confirm-attendance" style="width:fit-content"><?php echo wp_kses_post( __( 'Login to confirm attendance', 'jw-event-schedule' ) ); ?></a>
-		<?php endif; ?>
+			<?php else : ?>
+				<a class="jwes-btn jwes-btn-primary" href="/wp-login.php?redirect_to=/events/wordpress-convention/#confirm-attendance" style="width:fit-content"><?php echo wp_kses_post( __( 'Login to confirm attendance', 'jw-event-schedule' ) ); ?></a>
+			<?php endif; ?>
 
-	</section>
+		</section>
 
 	</article>
 
