@@ -1,6 +1,8 @@
 <?php
-
 use \JWES\PostType;
+
+// TODO: abstract this file to a template 
+// that can be used in more than one place.
 
 $args = array(
 	'post_type'      => 'event',

@@ -64,6 +64,9 @@ wp_head();
 
 					<?php
 
+					// TODO: abstract this file to a template 
+					// that can be used in more than one place.
+
 					// Optmizing the term query.
 					$jwes_terms = get_terms(
 						array(
