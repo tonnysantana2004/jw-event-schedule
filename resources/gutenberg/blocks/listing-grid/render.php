@@ -26,7 +26,7 @@ $event_query = new WP_Query($args);
 				the_post_thumbnail();
 			} else { ?>
 
-				<img src="<?= plugins_url('assets/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?>">
+				<img src="<?= plugins_url('build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?>">
 
 			<?php }; ?>
 

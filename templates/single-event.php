@@ -13,6 +13,8 @@ require 'header.php';
 
 <main>
 
+	<article>
+
 	<section class="jwes-container jwes-event-header">
 
 		<?php
@@ -101,7 +103,7 @@ require 'header.php';
 
 			$jwes_content = get_the_content() ? get_the_content() : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
 
-			echo wp_kses_post( $jwes_content );
+			the_content();
 
 			?>
 
@@ -143,12 +145,16 @@ require 'header.php';
 
 	</section>
 
+	</article>
+
 	<hr>
 
 	<section class="jwes-container">
 		<h2 class="jwes-title jwes-title-2"><?php echo wp_kses_post( __( 'About Us', 'jw-event-schedule' ) ); ?></h2>
 		<p class="jwes-text jwes-text-2"><?php echo wp_kses_post( __( 'The team at Jack Westin is dedicated to a single goal: Giving you the highest quality learning resources, bar none. We understand that you can’t crush the MCAT® without the perfect blend of critical thinking and fundamental science knowledge. To this end, we are dedicated to providing you with only the cutting edge of comprehensive tools, courses, and practice materials. Our MCAT® science and CARS courses, taught by the world’s best and most engaging MCAT® instructors, are designed to do more than just teach you the MCAT®—our aim is to supercharge your studying and encourage lifelong learning.', 'jw-event-schedule' ) ); ?></p>
 	</section>
+	
+		
 
 </main>
 
