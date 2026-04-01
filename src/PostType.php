@@ -8,6 +8,8 @@
 namespace JWES;
 
 use DateTime;
+use Exception;
+use JWES\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,21 +33,21 @@ class PostType {
 	/**
 	 * Register the event post type.
 	 */
-	public function create_the_post_type() {
+	private function create_the_post_type() {
 		add_action(
 			'init',
 			function () {
 				$args = array(
 					'labels'       => array(
-						'name'          => esc_html__( 'Events', 'jw-event-schedule' ),
-						'singular_name' => esc_html__( 'Event', 'jw-event-schedule' ),
-						'menu_name'     => esc_html__( 'Events', 'jw-event-schedule' ),
-						'add_new'       => esc_html__( 'Add New event', 'jw-event-schedule' ),
-						'add_new_item'  => esc_html__( 'Add New event', 'jw-event-schedule' ),
-						'new_item'      => esc_html__( 'New event', 'jw-event-schedule' ),
-						'edit_item'     => esc_html__( 'Edit event', 'jw-event-schedule' ),
-						'view_item'     => esc_html__( 'View event', 'jw-event-schedule' ),
-						'all_items'     => esc_html__( 'All events', 'jw-event-schedule' ),
+						'name'          => __( 'Events', 'jw-event-schedule' ),
+						'singular_name' => __( 'Event', 'jw-event-schedule' ),
+						'menu_name'     => __( 'Events', 'jw-event-schedule' ),
+						'add_new'       => __( 'Add New event', 'jw-event-schedule' ),
+						'add_new_item'  => __( 'Add New event', 'jw-event-schedule' ),
+						'new_item'      => __( 'New event', 'jw-event-schedule' ),
+						'edit_item'     => __( 'Edit event', 'jw-event-schedule' ),
+						'view_item'     => __( 'View event', 'jw-event-schedule' ),
+						'all_items'     => __( 'All events', 'jw-event-schedule' ),
 					),
 					'public'       => true,
 					'has_archive'  => true,
@@ -67,19 +69,19 @@ class PostType {
 	/**
 	 * Register the taxonomy event type.
 	 */
-	public function create_the_taxonomy() {
+	private function create_the_taxonomy() {
 		add_action(
 			'init',
 			function () {
 				$args = array(
 					'labels'       => array(
-						'name'          => esc_html__( 'Event Types', 'jw-event-schedule' ),
-						'singular_name' => esc_html__( 'Event Type', 'jw-event-schedule' ),
-						'edit_item'     => esc_html__( 'Edit Event Type', 'jw-event-schedule' ),
-						'update_item'   => esc_html__( 'Update Event Type', 'jw-event-schedule' ),
-						'add_new_item'  => esc_html__( 'Add New Event Type', 'jw-event-schedule' ),
-						'new_item_name' => esc_html__( 'New Event Type Name', 'jw-event-schedule' ),
-						'menu_name'     => esc_html__( 'Event Type', 'jw-event-schedule' ),
+						'name'          => __( 'Event Types', 'jw-event-schedule' ),
+						'singular_name' => __( 'Event Type', 'jw-event-schedule' ),
+						'edit_item'     => __( 'Edit Event Type', 'jw-event-schedule' ),
+						'update_item'   => __( 'Update Event Type', 'jw-event-schedule' ),
+						'add_new_item'  => __( 'Add New Event Type', 'jw-event-schedule' ),
+						'new_item_name' => __( 'New Event Type Name', 'jw-event-schedule' ),
+						'menu_name'     => __( 'Event Type', 'jw-event-schedule' ),
 					),
 					'hierarchical' => true,
 					'rewrite'      => array(
@@ -98,7 +100,7 @@ class PostType {
 	/**
 	 * Add custom fields to the post type.
 	 */
-	public function create_the_custom_fields() {
+	private function create_the_custom_fields() {
 
 		add_action(
 			'rest_api_init',
@@ -109,7 +111,7 @@ class PostType {
 					'event_date',
 					array(
 						'object_subtype'    => 'event',
-						'label'             => esc_html__( 'Event Date', 'jw-event-schedule' ),
+						'label'             => __( 'Event Date', 'jw-event-schedule' ),
 						'type'              => 'string',
 
 						// 6. REST API Integration
@@ -130,7 +132,7 @@ class PostType {
 					'event_location',
 					array(
 						'object_subtype'    => 'event',
-						'label'             => esc_html__( 'Event Location', 'jw-event-schedule' ),
+						'label'             => __( 'Event Location', 'jw-event-schedule' ),
 						'type'              => 'string',
 
 						// 6. REST API Integration
@@ -150,9 +152,9 @@ class PostType {
 					'attendance_list',
 					array(
 						'object_subtype' => 'event',
-						'label'          => esc_html__( 'Attendance List', 'jw-event-schedule' ),
+						'label'          => __( 'Attendance List', 'jw-event-schedule' ),
 						'type'           => 'array',
-						'single'         => 'true',
+						'single'         => true,
 
 						// 6. REST API Integration
 						'show_in_rest'   => array(
@@ -177,15 +179,15 @@ class PostType {
 	/**
 	 * Add new columns to the events listing view on the WordPress dashboard.
 	 */
-	public function create_listing_columns() {
+	private function create_listing_columns() {
 		add_filter(
 			'manage_event_posts_columns',
 			function ( $columns ) {
 
 				$new_columns = array(
 					'title'          => $columns['title'],
-					'event_date'     => 'Event Date',
-					'event_location' => 'Event Location',
+					'event_date'     => esc_html__( 'Event Date', 'jw-event-schedule' ),
+					'event_location' => esc_html__( 'Event Location', 'jw-event-schedule' ),
 					'date'           => $columns['date'],
 				);
 
@@ -198,11 +200,11 @@ class PostType {
 			function ( $column, $post_id ) {
 
 				if ( 'event_date' === $column ) {
-					echo esc_html( PostType::get_event_date( $post_id ) );
+					echo esc_html( self::get_event_date( $post_id ) );
 				}
 
 				if ( 'event_location' === $column ) {
-					echo esc_html( PostType::get_event_location( $post_id ) );
+					echo esc_html( self::get_event_location( $post_id ) );
 				}
 			},
 			10,
@@ -211,47 +213,34 @@ class PostType {
 	}
 
 	/**
-	 * Add new fields to the main query.
+	 * Add new fields to the search query.
 	 */
-	public function create_custom_filtering_rules(): void {
+	private function create_custom_filtering_rules(): void {
 		add_action(
 			'pre_get_posts',
 			function ( $query ) {
 
-				if ( is_post_type_archive( 'event' ) || is_tax( 'event_type' ) || is_search() && 'event' === get_query_var( 'post_type' ) ) {
-					if ( ! isset( $_GET['date_range'] ) ) {
+				if ( ! $query->is_main_query() ) {
+					return;
+				}
+
+				if ( is_post_type_archive( 'event' ) || is_tax( 'event_type' ) || ( is_search() && 'event' === get_query_var( 'post_type' ) ) ) {
+					if ( ! wp_verify_nonce( Helper::sanitize_setted_get_field( 'search_nonce', true ), 'search_action' ) ) {
 						return;
 					}
 
-					$date_range = '';
+					$date_range = Helper::sanitize_setted_get_field( 'date_range', true );
 
-					if (
-					isset( $_GET['search_nonce'] ) &&
-					wp_verify_nonce(
-						sanitize_text_field( wp_unslash( $_GET['search_nonce'] ) ),
-						'search_action'
-					)
-					) {
-						$date_range = sanitize_text_field( wp_unslash( $_GET['date_range'] ) );
-					}
+					$dates = ! empty( $date_range ) ? explode( 'to', $date_range ) : array();
 
-					$dates = explode( 'to', $date_range );
-
-					if ( ! isset( $dates[0] ) || ! isset( $dates[1] ) ) {
+					try {
+						$start = ( new DateTime( trim( $dates[0] ?? '1980-1-1' ) ) )->setTime( 0, 0 )->format( 'U' );
+						$end   = ( new DateTime( trim( $dates[1] ?? '2050-1-1' ) ) )->setTime( 23, 59, 59 )->format( 'U' );
+					} catch ( Exception $e ) {
 						return;
 					}
 
-					$date1 = sanitize_text_field( $dates[0] );
-					$date2 = sanitize_text_field( $dates[1] );
-
-					$start = ( new DateTime( $date1 ?? '1980-1-1' ) )->setTime( 0, 0 )->format( 'U' );
-					$end   = ( new DateTime( $date2 ?? '2030-1-1' ) )->setTime( 23, 59, 59 )->format( 'U' );
-
-					$meta_query = $query->get( 'meta_query' );
-
-					if ( ! is_array( $meta_query ) ) {
-						$meta_query = array();
-					}
+					$meta_query = ! empty( $query->get( 'meta_query' ) ) ? $query->get( 'meta_query' ) : array();
 
 					$meta_query[] = array(
 						'key'     => 'event_date',
@@ -269,7 +258,7 @@ class PostType {
 	/**
 	 * Add the attendance endpoints to add and remove users from the list.
 	 */
-	public function create_custom_api_endpoint(): void {
+	private function create_custom_api_endpoint(): void {
 
 		add_action(
 			'rest_api_init',
@@ -282,8 +271,12 @@ class PostType {
 						'methods'             => 'POST',
 						'callback'            => function ( $request ) {
 
-							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
+							$user_id = get_current_user_id();
 							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
+
+							if ( get_post_type( $post_id ) !== 'event' ) {
+								return;
+							}
 
 							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true );
 
@@ -297,7 +290,7 @@ class PostType {
 							}
 
 							$response_data = array(
-								'message'    => esc_html__( 'Attendance List Updated.', 'jw-event-schedule' ),
+								'message'    => __( 'Attendance List Updated.', 'jw-event-schedule' ),
 								'attendance' => $current_attendance_list,
 								'timestamp'  => current_time( 'mysql' ),
 							);
@@ -317,8 +310,12 @@ class PostType {
 						'methods'             => 'DELETE',
 						'callback'            => function ( $request ) {
 
-							$user_id = intval( sanitize_text_field( $request['user_id'] ) );
+							$user_id = get_current_user_id();
 							$post_id = intval( sanitize_text_field( $request['post_id'] ) );
+
+							if ( 'event' !== get_post_type( $post_id ) ) {
+								return;
+							}
 
 							$current_attendance_list = get_post_meta( $post_id, 'attendance_list', true );
 
@@ -332,7 +329,7 @@ class PostType {
 							}
 
 							$response_data = array(
-								'message'    => esc_html__( 'Attendance List Updated.', 'jw-event-schedule' ),
+								'message'    => __( 'Attendance List Updated.', 'jw-event-schedule' ),
 								'attendance' => $current_attendance_list,
 								'timestamp'  => current_time( 'mysql' ),
 							);
@@ -360,7 +357,7 @@ class PostType {
 		$event_date = get_post_meta( $post_id, 'event_date', true );
 
 		if ( empty( $event_date ) ) {
-			return esc_html__( 'To decide', 'jw-event-schedule' );
+			return __( 'To decide', 'jw-event-schedule' );
 		}
 
 		$timestamp_format = '';
@@ -378,7 +375,7 @@ class PostType {
 		}
 
 		$date = wp_date( $timestamp_format, $event_date );
-		return esc_html( $date );
+		return $date;
 	}
 	/**
 	 * Return the event location formated.
@@ -387,6 +384,6 @@ class PostType {
 	 */
 	public static function get_event_location( $post_id ): string {
 		$location = get_post_meta( $post_id, 'event_location', true );
-		return $location ? esc_html( $location ) : esc_html__( 'Online', 'jw-event-schedule' );
+		return $location ? $location : __( 'Online', 'jw-event-schedule' );
 	}
 }

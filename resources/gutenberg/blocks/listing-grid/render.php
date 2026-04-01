@@ -1,47 +1,56 @@
 <?php
-use \JWES\PostType;
+/**
+ * Render listing block template
+ *
+ * @package JW Event Schedule
+ */
 
-// TODO: abstract this file to a template 
+use JWES\PostType;
+
+// TODO: abstract this file to a template
 // that can be used in more than one place.
 
-$args = array(
+$jwes_args = array(
 	'post_type'      => 'event',
 	'posts_per_page' => 4,
 	'post_status'    => 'publish',
-	'fields' => 'ids'
 );
 
-// Optimized query only with ids
-$event_query = new WP_Query($args);
+$jwes_event_query = new WP_Query( $jwes_args );
 
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
+<p <?php echo esc_attr( get_block_wrapper_attributes() ); ?>>
 
 <div class="jwes-listing-grid">
 
-	<?php while ($event_query->have_posts()) : $event_query->the_post() ?>
-		<a class="jwes-listing-item" href="<?= the_permalink() ?>">
+	<?php
+	while ( $jwes_event_query->have_posts() ) :
+		$jwes_event_query->the_post();
+		?>
+	
+		<a class="jwes-listing-item" href="<?php echo esc_url( get_the_permalink() ); ?>">
 
 			<?php
 
-			if (get_the_post_thumbnail_url()) {
+			if ( get_the_post_thumbnail_url() ) {
 				the_post_thumbnail();
-			} else { ?>
+			} else {
+				?>
 
-				<img src="<?= plugins_url('build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE); ?>">
+				<img src="<?php echo esc_url( plugins_url( 'build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE ) ); ?>">
 
-			<?php }; ?>
+			<?php } ?>
 
 			<h3 class="jwes-title jwes-title-4 jwes-line-limit-1">
-				<?php echo the_title(); ?>
+				<?php echo esc_html( get_the_title() ); ?>
 			</h3>
 
 			<div class="jwes-text jwes-text-3 jwes-line-limit-3 ">
 				<?php
 
-				$excerpt =  get_the_excerpt();
+				$jwes_excerpt = get_the_excerpt() ?? __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
 
-				echo $excerpt ? $excerpt : esc_html("We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.");
+				echo esc_html( $jwes_excerpt );
 
 				?>
 
@@ -49,20 +58,22 @@ $event_query = new WP_Query($args);
 
 			<div class="jwes-info-box-description jwes-text jwes-text-4">
 				<span>
-					<?= esc_html(PostType::get_event_date(get_the_ID(), true, false)); ?>
+					<?php echo esc_html( PostType::get_event_date( get_the_ID(), true, false ) ); ?>
 				</span>
 				<span>
-					<?= esc_html(PostType::get_event_location(get_the_ID())); ?>
+					<?php echo esc_html( PostType::get_event_location( get_the_ID() ) ); ?>
 				</span>
 			</div>
 
 
 		</a>
 
-	<?php endwhile;
+		<?php
+	endwhile;
 
-	if (!$event_query->have_posts()) : ?>
-		<p class="jwes-text jwes-text-2"><?= esc_html__('Nothing was found.', 'jw-event-schedule') ?></p>
+	if ( ! $jwes_event_query->have_posts() ) :
+		?>
+		<p class="jwes-text jwes-text-2"><?php echo esc_html__( 'Nothing was found.', 'jw-event-schedule' ); ?></p>
 	<?php endif; ?>
 
 

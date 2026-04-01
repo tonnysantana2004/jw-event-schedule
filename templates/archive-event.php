@@ -17,7 +17,6 @@ wp_head();
 
 	<section class="jwes-container">
 
-		<!-- 4. Search and Filtering Functionality -->
 		<form method="get" class="jwes-form">
 			
 			<?php wp_nonce_field( 'search_action', 'search_nonce' ); ?>
@@ -28,27 +27,13 @@ wp_head();
 
 				<?php
 
-				$jwes_search_value = '';
-				$jwes_event_type   = '';
-				$jwes_date_range   = '';
-				if (
-				isset( $_GET['search_nonce'] ) &&
-				wp_verify_nonce(
-					sanitize_text_field( wp_unslash( $_GET['search_nonce'] ) ),
-					'search_action'
-				)
-				) {
-					if ( isset( $_GET['s'] ) ) {
-						$jwes_search_value = sanitize_text_field( wp_unslash( $_GET['s'] ) );
-					}
+				// Since we are not updating but reading, we dont need nonce verification.
+				// phpcs:disable WordPress.Security.NonceVerification.Recommended
+				$jwes_search_value = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
+				$jwes_date_range   = isset( $_GET['date_range'] ) ? sanitize_text_field( wp_unslash( $_GET['date_range'] ) ) : '';
+				$jwes_event_type   = isset( $_GET['event_type'] ) ? sanitize_text_field( wp_unslash( $_GET['event_type'] ) ) : '';
+				// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
-					if ( isset( $_GET['date_range'] ) ) {
-						$jwes_date_range = sanitize_text_field( wp_unslash( $_GET['date_range'] ) );
-					}
-					if ( isset( $_GET['event_type'] ) ) {
-						$jwes_event_type = sanitize_text_field( wp_unslash( $_GET['event_type'] ) );
-					}
-				}
 				?>
 
 				<input type="text" id="search-by-title" name="s" placeholder="<?php echo esc_html__( 'Start typing...', 'jw-event-schedule' ); ?>" value="<?php echo esc_attr( $jwes_search_value ); ?>">
@@ -64,9 +49,7 @@ wp_head();
 
 					<?php
 
-					// TODO: abstract this file to a template 
-					// that can be used in more than one place.
-
+					// TODO: abstract this file to a template that can be used in more than one place.
 					// Optmizing the term query.
 					$jwes_terms = get_terms(
 						array(
@@ -102,7 +85,7 @@ wp_head();
 									$jwes_term_selected = true;
 								}
 
-								echo $jwes_term_selected ? 'selected' : '';
+								echo $jwes_term_selected ? esc_attr( 'selected' ) : '';
 								?>
 							>
 
@@ -136,7 +119,7 @@ wp_head();
 			while ( have_posts() ) :
 				the_post();
 				?>
-				<a class="jwes-listing-item" href="<?php echo esc_url( the_permalink() ); ?>">
+				<a class="jwes-listing-item" href="<?php echo esc_url( get_the_permalink() ); ?>">
 
 					<?php
 
@@ -144,8 +127,8 @@ wp_head();
 					if ( get_the_post_thumbnail_url() ) {
 						$jwes_img_tag = get_the_post_thumbnail();
 					} else {
-						$jwes_post_thumbnail = plugins_url( 'build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE );
-						$jwes_img_tag        = "<img src='$jwes_post_thumbnail'>";
+						$jwes_post_thumbnail_url = plugins_url( 'build/images/jwes-thumbnail.webp', JWES_PLUGIN_FILE );
+						$jwes_img_tag            = '<img src=' . esc_url( $jwes_post_thumbnail_url ) . '>';
 					}
 
 					echo wp_kses_post( $jwes_img_tag );
@@ -153,7 +136,7 @@ wp_head();
 					?>
 
 					<h3 class="jwes-title jwes-title-4 jwes-line-limit-1">
-						<?php echo esc_html( the_title() ); ?>
+						<?php echo esc_html( get_the_title() ); ?>
 					</h3>
 
 					<div class="jwes-text jwes-text-3 jwes-line-limit-3 ">

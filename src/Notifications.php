@@ -41,15 +41,15 @@ class Notifications {
 		foreach ( $users as $user ) {
 			$to = $user->user_email;
 
-			if ( $update && $new_post && 'publish' == $post_status ) {
-				$subject = 'New Event - ' . $post->post_title;
-				$message = 'Hi ' . $user->display_name . "! There's a new event waiting for you. Click here to confirm your attendance.";
-			} elseif ( $update && 'publish' == $post_status ) {
-				$subject = 'Event Updated - ' . $post->post_title;
-				$message = 'Updates about the event! Some changes have been made, click here to check them out.';
+			if ( $update && $new_post && 'publish' === $post_status ) {
+				$subject = __( 'New Event', 'jw-event-schedule' ) . ' - ' . $post->post_title;
+				$message = __( 'Hi', 'jw-event-schedule' ) . $user->display_name . '! ' . __( "There's a new event waiting for you. Click here to confirm your attendance.", 'jw-event-schedule' );
+			} elseif ( $update && 'publish' === $post_status ) {
+				$subject = __( 'Event Updated', 'jw-event-schedule' ) . ' - ' . $post->post_title;
+				$message = __( 'Updates about the event! Some changes have been made, click here to check them out.', 'jw-event-schedule' );
 			} elseif ( $update && 'trash' === $post_status ) {
-				$subject = 'Event Canceled - ' . $post->post_title;
-				$message = 'Hey ' . $user->display_name . ', how are you? We regret to inform you that this event has been cancelled.';
+				$subject = __( 'Event Canceled', 'jw-event-schedule' ) . ' - ' . $post->post_title;
+				$message = __( 'Hey', 'jw-event-schedule' ) . ' ' . $user->display_name . __( ', how are you? We regret to inform you that this event has been cancelled.', 'jw-event-schedule' );
 			} else {
 				return;
 			}

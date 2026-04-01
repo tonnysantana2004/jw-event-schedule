@@ -33,7 +33,7 @@ require 'header.php';
 
 			<div class="jwes-event-intro">
 
-				<h1 class="jwes-title jwes-title-1"><?php the_title(); ?></h1>
+				<h1 class="jwes-title jwes-title-1"><?php echo esc_html( get_the_title() ); ?></h1>
 				<p class="jwes-text jwes-text-1">
 					<?php
 
@@ -103,7 +103,7 @@ require 'header.php';
 
 				$jwes_content = get_the_content() ? get_the_content() : __( "We're now running a handful of different meetup series in spaces around Toronto, from Etobicoke to Scarborough.", 'jw-event-schedule' );
 
-				the_content();
+				echo wp_kses( get_the_content(), wp_kses_allowed_html( 'post' ) );
 
 				?>
 
@@ -123,7 +123,6 @@ require 'header.php';
 
 					<form action="/wp-json/jwes/v1/attendance"  id="attendance-form">
 						<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
-						<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
 						<button class="jwes-btn jwes-btn-primary" type="submit" style="width:fit-content" id="confirm-attendance"><?php echo esc_html__( 'Confirm Attendance', 'jw-event-schedule' ); ?></button>
 					</form>
 
@@ -132,7 +131,6 @@ require 'header.php';
 					?>
 					<form action="/wp-json/jwes/v1/attendance" id="cancel-attendance-form">
 						<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
-						<input type="hidden" name="user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>">
 						<button class="jwes-btn jwes-btn-danger" type="submit" style="width:fit-content" id="cancel-attendance"><?php echo esc_html__( 'Cancel Attendance', 'jw-event-schedule' ); ?></button>
 					</form>
 
